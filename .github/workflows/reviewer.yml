@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Needed to get the diff
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -34,7 +34,6 @@ jobs:
           REPO_NAME: ${{ github.event.repository.name }}
           BASE_BRANCH: ${{ github.base_ref }}
         run: |
-          # Create a script on the fly to handle the review efficiently
           cat << 'EOF' > reviewer.js
           const { GoogleGenerativeAI } = require("@google/generative-ai");
           const { Octokit } = require("@octokit/rest");
@@ -45,20 +44,17 @@ jobs:
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-            // 1. Get the Diff (Dynamic Branching)
+            // 1. Get the Diff
             const baseBranch = process.env.BASE_BRANCH || 'main';
             console.log(`Diffing against origin/${baseBranch}...`);
-            
             try {
-                // Ensure we have the base branch history
                 execSync(`git fetch origin ${baseBranch} --depth=1`);
             } catch (e) {
-                console.warn("Fetch failed or branch exists. Continuing...");
+                console.warn("Fetch failed, assuming history is present.");
             }
 
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
-            
-            // Safety check: Don't waste tokens on empty diffs
+
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
             // 2. Ask Gemini
@@ -80,7 +76,7 @@ jobs:
             try {
                 comments = JSON.parse(response);
             } catch (e) {
-                console.error("Failed to parse JSON response:", response);
+                console.error("JSON Parse Error. Raw response:", response);
                 comments = [];
             }
 
@@ -93,22 +89,21 @@ jobs:
                 body: "LGTM! 🚀 No issues found."
               });
             } else {
-               // Post summary comment WITH DATA for local CLI
+               // Construct Body safely to avoid YAML indentation errors
+               const jsonStr = JSON.stringify(comments, null, 2);
+               const commentBody = "Gemini found " + comments.length + " issues.\n\n" +
+                                   "<details>\n" +
+                                   "<summary>Click to see raw JSON for CLI</summary>\n\n" +
+                                   "```json\n" + jsonStr + "\n```\n" +
+                                   "</details>";
+
                await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: Number(process.env.PR_NUMBER),
-                body: `Gemini found ${comments.length} issues.
-                
-<details>
-<summary>Click to see raw JSON for CLI</summary>
-
-\`\`\`json
-${JSON.stringify(comments, null, 2)}
-\`\`\`
-</details>`
+                body: commentBody
               });
-              console.log("Review complete. Issues found: " + comments.length);
+              console.log("Review posted.");
             }
           }
           run().catch(e => { console.error(e); process.exit(1); });
