@@ -39,7 +39,27 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
-          // 1. AUTO-DISCOVERY
+          // 1. GLOBAL RULES FETCHER
+          async function getGlobalRules(owner) {
+            try {
+                // Assuming 'infra' repo is public and named 'infra'
+                const url = `https://raw.githubusercontent.com/${owner}/infra/main/GEMINI.md`;
+                console.log(`📖 Fetching global rules from: ${url}`);
+                const response = await fetch(url);
+                if (!response.ok) {
+                    console.warn(`⚠️ Could not fetch GEMINI.md (Status: ${response.status}). Proceeding with defaults.`);
+                    return "";
+                }
+                const text = await response.text();
+                if (text.length < 10) return "";
+                return `\n\n### 🌍 USER-DEFINED GLOBAL STANDARDS\nYou MUST enforce these rules strictly:\n${text}\n`;
+            } catch (e) {
+                console.warn("⚠️ Failed to load global rules:", e.message);
+                return "";
+            }
+          }
+
+          // 2. MODEL AUTO-DISCOVERY
           async function getBestWorkingModel(apiKey) {
             console.log("🔍 Auto-discovering available models...");
             try {
@@ -51,12 +71,11 @@ jobs:
                     .filter(m => m.supportedGenerationMethods.includes("generateContent"))
                     .map(m => m.name.replace("models/", ""));
 
-                // Priority: Fast Flash models first, then Pro
                 const priorities = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp", "gemini-pro"];
                 for (const p of priorities) { if (availableModels.includes(p)) return p; }
                 return availableModels.find(m => m.includes("flash")) || availableModels[0];
             } catch (e) {
-                return "gemini-1.5-flash-latest"; // Safe fallback
+                return "gemini-1.5-flash-latest";
             }
           }
 
@@ -66,17 +85,22 @@ jobs:
             const modelName = await getBestWorkingModel(process.env.GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: modelName });
 
+            // Fetch Global Rules
+            const globalRules = await getGlobalRules(process.env.REPO_OWNER);
+
             console.log(`🚀 Reviewing with: ${modelName}`);
 
-            // 2. Git Diff
+            // 3. Git Diff
             const baseBranch = process.env.BASE_BRANCH || 'main';
             try { execSync(`git fetch origin ${baseBranch} --depth=1`); } catch (e) {}
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
-            // 3. Prompt (Now asks for Summary + Issues)
+            // 4. Prompt Construction
             const prompt = `
               You are a Senior Code Reviewer. Review the provided git diff.
+              
+              ${globalRules}
               
               1. **Summary**: Write a 2-sentence executive summary of what this PR does.
               2. **Issues**: Identify issues and classify them strictly into:
@@ -109,7 +133,7 @@ jobs:
 
             const { summary, issues } = reviewData;
 
-            // 4. Generate Dashboard
+            // 5. Generate Dashboard
             if (issues.length === 0) {
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
@@ -169,7 +193,7 @@ jobs:
               // D. Block Merge if Critical
               if (shouldFailBuild) {
                   console.error("❌ Blocking merge due to Critical Issues (Security/Bug Risk).");
-                  process.exit(1); // This fails the GitHub Action
+                  process.exit(1); 
               }
             }
           }
