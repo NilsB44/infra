@@ -5,10 +5,11 @@ import os
 from google import genai  # Or anthropic / openai
 
 # CONFIGURATION
-TARGET_REPO = "../WebScraper" # Change this to your target
+TARGET_REPO = "../WebScraper"  # Change this to your target
 API_KEY = os.environ.get("GEMINI_API_KEY")
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
 
 def get_repo_context(repo_path: str) -> str:
     """
@@ -20,14 +21,14 @@ def get_repo_context(repo_path: str) -> str:
     # 1. Get File Tree (ignoring git/node_modules/venv)
     context += "### FILE STRUCTURE:\n"
     for root, dirs, files in os.walk(repo_path):
-        dirs[:] = [d for d in dirs if d not in ['.git', '__pycache__', 'node_modules', 'venv', '.mypy_cache']]
+        dirs[:] = [d for d in dirs if d not in [".git", "__pycache__", "node_modules", "venv", ".mypy_cache"]]
         for file in files:
             file_path = os.path.join(root, file)
             context += f"- {os.path.relpath(file_path, repo_path)}\n"
 
     # 2. Get Key Config Files (Context for the Agent)
     # Add more key files as needed (Dockerfile, tox.ini, etc.)
-    key_files = ['pyproject.toml', 'requirements.txt', '.github/workflows/*.yml', 'README.md', 'Dockerfile']
+    key_files = ["pyproject.toml", "requirements.txt", ".github/workflows/*.yml", "README.md", "Dockerfile"]
     context += "\n### KEY CONFIGURATION FILES:\n"
 
     for pattern in key_files:
@@ -40,6 +41,7 @@ def get_repo_context(repo_path: str) -> str:
                 logging.warning(f"Could not read file {filepath}: {e}")
 
     return context
+
 
 def generate_plan(repo_context: str) -> str:
     client = genai.Client(api_key=API_KEY)
@@ -70,11 +72,12 @@ def generate_plan(repo_context: str) -> str:
     """
 
     response = client.models.generate_content(
-        model="gemini-2.0-flash", # or gemini-1.5-pro
-        contents=[system_instruction, f"Here is the current repository context:\n{repo_context}"]
+        model="gemini-2.0-flash",  # or gemini-1.5-pro
+        contents=[system_instruction, f"Here is the current repository context:\n{repo_context}"],
     )
 
     return response.text or ""
+
 
 if __name__ == "__main__":
     logging.info(f"🔍 Scanning {TARGET_REPO}...")
