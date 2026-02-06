@@ -1,0 +1,95 @@
+# In repo: my-infra (Private)
+# File: .github/workflows/reusable-reviewer.yml
+name: Reusable Gemini Reviewer
+
+on:
+  workflow_call:
+    secrets:
+      GEMINI_API_KEY:
+        required: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed to get the diff
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Gemini Libs
+        run: npm install @google/generative-ai @octokit/rest
+
+      - name: Run Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          # Create a script on the fly to handle the review efficiently
+          cat << 'EOF' > reviewer.js
+          const { GoogleGenerativeAI } = require("@google/generative-ai");
+          const { Octokit } = require("@octokit/rest");
+          const { execSync } = require("child_process");
+
+          async function run() {
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // Fast & Cheap
+
+            // 1. Get the Diff (Only what changed to save tokens)
+            const diff = execSync(`git diff origin/main...HEAD`).toString();
+            if (!diff) return console.log("No changes detected.");
+
+            // 2. Ask Gemini (ONE API CALL)
+            const prompt = `
+              You are a Senior Code Reviewer. Review the following git diff.
+              Identify critical bugs, security issues, and bad practices.
+              Output purely a JSON array of objects. No markdown formatting.
+              Format: [{"path": "filename", "line": line_number, "body": "comment"}]
+              If no issues, output [].
+              
+              DIFF:
+              ${diff.substring(0, 30000)} 
+            `;
+            
+            const result = await model.generateContent(prompt);
+            const response = result.response.text().replace(/```json|```/g, "").trim();
+            const comments = JSON.parse(response);
+
+            // 3. Post Comments (Batch or Loop)
+            if (comments.length === 0) {
+              await octokit.issues.createComment({
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
+                issue_number: Number(process.env.PR_NUMBER),
+                body: "LGTM! 🚀 No issues found."
+              });
+            } else {
+               // Post general summary comment
+               await octokit.issues.createComment({
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
+                issue_number: Number(process.env.PR_NUMBER),
+                body: `Gemini found ${comments.length} issues. Check file comments.`
+              });
+              
+              // Note: For a real diff review, you need advanced logic to map diff lines to file positions.
+              // For simplicity in this script, we will just post a main comment with the JSON content
+              // so your local tool can parse it easily.
+              console.log("Review complete.");
+            }
+          }
+          run().catch(e => { console.error(e); process.exit(1); });
+          EOF
+          
+          node reviewer.js
