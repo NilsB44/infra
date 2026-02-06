@@ -39,69 +39,72 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
-          // 👇 UPDATED MODEL LIST (Exact Names)
-          const MODEL_PRIORITY = [
-            "gemini-2.0-flash",           // 1. Try standard 2.0
-            "gemini-2.0-flash-exp",       // 2. Try experimental 2.0 (often needed)
-            "gemini-1.5-flash-latest",    // 3. Stable Flash (explicit 'latest' fixes 404)
-            "gemini-1.5-flash-002",       // 4. Specific version fallback
-            "gemini-pro"                  // 5. "Old Reliable" (The Nuclear Option)
-          ];
-
-          async function generateWithFallback(genAI, prompt) {
-            let lastError = null;
-
-            for (const modelName of MODEL_PRIORITY) {
-              console.log(`🤖 Attempting review with model: ${modelName}...`);
-              try {
-                const model = genAI.getGenerativeModel({ model: modelName });
+          // 👇 1. AUTO-DISCOVERY FUNCTION
+          async function getBestWorkingModel(apiKey) {
+            console.log("🔍 Auto-discovering available models...");
+            try {
+                // We fetch the list directly from the API to see what YOUR key can see
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                const data = await response.json();
                 
-                // 30s timeout to prevent hanging
-                const timeout = new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error("Request timeout")), 30000)
-                );
+                if (!data.models) throw new Error("No models returned by API.");
 
-                const result = await Promise.race([
-                    model.generateContent(prompt),
-                    timeout
-                ]);
+                // Filter for models that can generate content
+                const availableModels = data.models
+                    .filter(m => m.supportedGenerationMethods.includes("generateContent"))
+                    .map(m => m.name.replace("models/", "")); // Strip 'models/' prefix
 
-                console.log(`✅ Success with ${modelName}!`);
-                return { 
-                    text: result.response.text(), 
-                    usedModel: modelName 
-                };
+                console.log("📋 Available Models:", availableModels.join(", "));
 
-              } catch (error) {
-                console.warn(`❌ Failed with ${modelName}. Error: ${error.message}`);
-                
-                // Capture error but continue loop
-                lastError = error;
-                
-                // If 429 (Rate Limit), wait a bit. If 404, fail fast.
-                if (error.status === 429 || error.message.includes('429')) {
-                    console.log("⏳ Rate limit hit. Pausing 5s before next model...");
-                    await new Promise(r => setTimeout(r, 5000));
+                // Priority Logic: Try to find specific families in order
+                const priorities = [
+                    "gemini-1.5-flash",       // Stable Standard
+                    "gemini-1.5-flash-001",   // Specific Version
+                    "gemini-1.5-pro",         // Stable Pro
+                    "gemini-2.0-flash-exp",   // Experimental
+                    "gemini-pro"              // Legacy
+                ];
+
+                // Find the first priority that exists in your available list
+                for (const preferred of priorities) {
+                    if (availableModels.includes(preferred)) {
+                        return preferred;
+                    }
                 }
-              }
+
+                // Fallback: If none of our favorites exist, just take the first "flash" model found
+                const anyFlash = availableModels.find(m => m.includes("flash"));
+                if (anyFlash) return anyFlash;
+
+                // Ultimate Fallback: Just take the first valid model
+                return availableModels[0];
+
+            } catch (e) {
+                console.error("⚠️ Auto-discovery failed:", e.message);
+                console.log("Falling back to safe default 'gemini-1.5-flash-latest'");
+                return "gemini-1.5-flash-latest";
             }
-            throw new Error(`All models failed. Last error: ${lastError?.message}`);
           }
 
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-            
-            // 1. Git Diff Logic
+
+            // 👇 2. DYNAMIC MODEL SELECTION
+            // Find the correct model name for this specific API Key
+            const modelName = await getBestWorkingModel(process.env.GEMINI_API_KEY);
+            console.log(`🚀 Selected Model: ${modelName}`);
+
+            const model = genAI.getGenerativeModel({ model: modelName });
+
+            // 3. Git Logic
             const baseBranch = process.env.BASE_BRANCH || 'main';
-            console.log(`Diffing against origin/${baseBranch}...`);
             try { execSync(`git fetch origin ${baseBranch} --depth=1`); } catch (e) {}
 
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
 
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
-            // 2. Prepare Prompt
             const prompt = `
               You are a Senior Code Reviewer. Review the following git diff.
               Identify critical bugs, security issues, and bad practices.
@@ -113,33 +116,41 @@ jobs:
               ${diff.substring(0, 30000)} 
             `;
             
-            // 3. CALL GEMINI
-            let response, usedModel;
+            // 4. Generate with Retry logic for Rate Limits (429)
+            let responseText;
             try {
-                const result = await generateWithFallback(genAI, prompt);
-                response = result.text.replace(/```json|```/g, "").trim();
-                usedModel = result.usedModel;
-            } catch (e) {
-                console.error("FATAL: Review failed completely.", e);
-                process.exit(1);
+                 const result = await model.generateContent(prompt);
+                 responseText = result.response.text();
+            } catch (error) {
+                // If the auto-selected model hits a rate limit (429), we can't easily fix it 
+                // without complex logic, so we fail gracefully.
+                console.error(`❌ Model ${modelName} failed.`);
+                console.error(error.message);
+                
+                // If it was a 429, we print a friendly message
+                if (error.message.includes("429")) {
+                    console.log("⚠️ You hit the Free Tier rate limit. Try again in a minute.");
+                }
+                process.exit(1); 
             }
+
+            const response = responseText.replace(/```json|```/g, "").trim();
             
-            // 4. Parse & Post
             let comments;
             try { comments = JSON.parse(response); } catch (e) { comments = []; }
 
+            // 5. Post Comments
             if (comments.length === 0) {
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: Number(process.env.PR_NUMBER),
-                body: `LGTM! 🚀 No issues found. (Reviewed by ${usedModel})`
+                body: `LGTM! 🚀 No issues found. (Reviewed by ${modelName})`
               });
             } else {
                const jsonStr = JSON.stringify(comments, null, 2);
-               // Safe string concatenation to avoid YAML errors
                const commentBody = "Gemini found " + comments.length + " issues.\n" +
-                                   "<sub>🤖 Reviewed by **" + usedModel + "**</sub>\n\n" +
+                                   "<sub>🤖 Reviewed by **" + modelName + "**</sub>\n\n" +
                                    "<details>\n" +
                                    "<summary>Click to see raw JSON for CLI</summary>\n\n" +
                                    "```json\n" + jsonStr + "\n```\n" +
@@ -151,7 +162,7 @@ jobs:
                 issue_number: Number(process.env.PR_NUMBER),
                 body: commentBody
               });
-              console.log("Review posted successfully.");
+              console.log("Review posted.");
             }
           }
           run().catch(e => { console.error(e); process.exit(1); });
