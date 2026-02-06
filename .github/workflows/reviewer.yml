@@ -39,10 +39,36 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
+          // 👇 RETRY LOGIC FUNCTION
+          async function generateWithRetry(model, prompt, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+              try {
+                return await model.generateContent(prompt);
+              } catch (error) {
+                // Check for Rate Limit (429)
+                if (error.response && error.response.promptFeedback) {
+                   console.log("Blocked by safety filters.");
+                   throw error;
+                }
+                
+                // If 429 (Too Many Requests)
+                if (error.status === 429 || error.message.includes('429')) {
+                  console.warn(`⚠️ Quota hit. Waiting 60 seconds... (Attempt ${i + 1}/${retries})`);
+                  await new Promise(resolve => setTimeout(resolve, 60000));
+                } else {
+                  throw error; // If it's another error, crash immediately
+                }
+              }
+            }
+            throw new Error("Max retries exceeded. API is too busy.");
+          }
+
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+            
+            // 👇 SWITCHED TO STABLE MODEL
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
             // 1. Get the Diff
             const baseBranch = process.env.BASE_BRANCH || 'main';
@@ -69,7 +95,8 @@ jobs:
               ${diff.substring(0, 30000)} 
             `;
             
-            const result = await model.generateContent(prompt);
+            // Call via the retry wrapper
+            const result = await generateWithRetry(model, prompt);
             const response = result.response.text().replace(/```json|```/g, "").trim();
             
             let comments;
@@ -89,7 +116,6 @@ jobs:
                 body: "LGTM! 🚀 No issues found."
               });
             } else {
-               // Construct Body safely to avoid YAML indentation errors
                const jsonStr = JSON.stringify(comments, null, 2);
                const commentBody = "Gemini found " + comments.length + " issues.\n\n" +
                                    "<details>\n" +
