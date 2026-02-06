@@ -39,51 +39,63 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
-          // 👇 RETRY LOGIC FUNCTION
-          async function generateWithRetry(model, prompt, retries = 3) {
-            for (let i = 0; i < retries; i++) {
+          // 👇 DEFINING THE MODEL LADDER
+          const MODEL_PRIORITY = [
+            "gemini-2.0-flash",       // 1. Try the smart new one
+            "gemini-1.5-flash",       // 2. Fallback to stable
+            "gemini-1.5-flash-8b"     // 3. Last resort (High limits)
+          ];
+
+          async function generateWithFallback(genAI, prompt) {
+            let lastError = null;
+
+            for (const modelName of MODEL_PRIORITY) {
+              console.log(`🤖 Attempting review with model: ${modelName}...`);
               try {
-                return await model.generateContent(prompt);
-              } catch (error) {
-                // Check for Rate Limit (429)
-                if (error.response && error.response.promptFeedback) {
-                   console.log("Blocked by safety filters.");
-                   throw error;
-                }
+                const model = genAI.getGenerativeModel({ model: modelName });
                 
-                // If 429 (Too Many Requests)
-                if (error.status === 429 || error.message.includes('429')) {
-                  console.warn(`⚠️ Quota hit. Waiting 60 seconds... (Attempt ${i + 1}/${retries})`);
-                  await new Promise(resolve => setTimeout(resolve, 60000));
-                } else {
-                  throw error; // If it's another error, crash immediately
-                }
+                // timeout promise to prevent hanging
+                const timeout = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error("Request timeout")), 30000)
+                );
+
+                const result = await Promise.race([
+                    model.generateContent(prompt),
+                    timeout
+                ]);
+
+                console.log(`✅ Success with ${modelName}!`);
+                return { 
+                    text: result.response.text(), 
+                    usedModel: modelName 
+                };
+
+              } catch (error) {
+                console.warn(`❌ Failed with ${modelName}. Error: ${error.message}`);
+                // If it's a "Safety" block, waiting won't help, but we try next model anyway.
+                // If it's 429 (Rate Limit) or 404 (Not Found), we immediately loop to the next.
+                lastError = error;
+                // Add a tiny pause between retries to be polite
+                await new Promise(r => setTimeout(r, 2000));
               }
             }
-            throw new Error("Max retries exceeded. API is too busy.");
+            throw new Error(`All models failed. Last error: ${lastError?.message}`);
           }
 
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
             
-            // 👇 SWITCHED TO STABLE MODEL
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-            // 1. Get the Diff
+            // 1. Git Diff Logic
             const baseBranch = process.env.BASE_BRANCH || 'main';
             console.log(`Diffing against origin/${baseBranch}...`);
-            try {
-                execSync(`git fetch origin ${baseBranch} --depth=1`);
-            } catch (e) {
-                console.warn("Fetch failed, assuming history is present.");
-            }
+            try { execSync(`git fetch origin ${baseBranch} --depth=1`); } catch (e) {}
 
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
 
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
-            // 2. Ask Gemini
+            // 2. Prepare Prompt
             const prompt = `
               You are a Senior Code Reviewer. Review the following git diff.
               Identify critical bugs, security issues, and bad practices.
@@ -95,33 +107,36 @@ jobs:
               ${diff.substring(0, 30000)} 
             `;
             
-            // Call via the retry wrapper
-            const result = await generateWithRetry(model, prompt);
-            const response = result.response.text().replace(/```json|```/g, "").trim();
-            
-            let comments;
+            // 3. CALL GEMINI WITH FALLBACKS
+            let response, usedModel;
             try {
-                comments = JSON.parse(response);
+                const result = await generateWithFallback(genAI, prompt);
+                response = result.text.replace(/```json|```/g, "").trim();
+                usedModel = result.usedModel;
             } catch (e) {
-                console.error("JSON Parse Error. Raw response:", response);
-                comments = [];
+                console.error("Review failed:", e);
+                process.exit(1);
             }
+            
+            // 4. Parse & Post
+            let comments;
+            try { comments = JSON.parse(response); } catch (e) { comments = []; }
 
-            // 3. Post Comments
             if (comments.length === 0) {
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: Number(process.env.PR_NUMBER),
-                body: "LGTM! 🚀 No issues found."
+                body: `LGTM! 🚀 No issues found. (Reviewed by ${usedModel})`
               });
             } else {
                const jsonStr = JSON.stringify(comments, null, 2);
-               const commentBody = "Gemini found " + comments.length + " issues.\n\n" +
-                                   "<details>\n" +
-                                   "<summary>Click to see raw JSON for CLI</summary>\n\n" +
-                                   "```json\n" + jsonStr + "\n```\n" +
-                                   "</details>";
+               const commentBody = `Gemini found ${comments.length} issues.\n` +
+                                   `<sub>🤖 Reviewed by **${usedModel}**</sub>\n\n` +
+                                   `<details>\n` +
+                                   `<summary>Click to see raw JSON for CLI</summary>\n\n` +
+                                   `\`\`\`json\n${jsonStr}\n\`\`\`\n` +
+                                   `</details>`;
 
                await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
