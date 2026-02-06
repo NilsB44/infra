@@ -29,3 +29,9 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **DRY (Don't Repeat Yourself):** Logic duplicated 3+ times should be refactored into a helper.
 - **Naming:** Variables should be descriptive (`user_id` vs `u`).
 - **Functions:** A function should do one thing only. If it's over 50 lines, it likely needs splitting.
+
+## 🌳 Workflow & Git Governance
+- **Main Branch Protection:** The `main` branch is READ-ONLY. Direct pushes to `main` are strictly forbidden.
+- **Pull Requests (PRs):** All changes, features, or bug fixes MUST be submitted via a Pull Request.
+- **Agent Compliance:** AI agents must always create a new branch for their work (e.g., using `worktrunk`) and never attempt to push directly to the primary branch.
+- **Review Requirement:** PRs must be reviewed (e.g., by the `gemini-reviewer` or a human) before merging.
