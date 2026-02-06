@@ -56,6 +56,23 @@ jobs:
             }
           }
 
+          async function postOrUpdateComment(octokit, body) {
+            const owner = process.env.REPO_OWNER;
+            const repo = process.env.REPO_NAME;
+            const issue_number = Number(process.env.PR_NUMBER);
+
+            const { data: comments } = await octokit.issues.listComments({ owner, repo, issue_number });
+            const botComment = comments.find(c => c.body.includes("## 🤖 AI Code Review") || c.body.includes("## 🟩 LGTM!"));
+
+            if (botComment) {
+              await octokit.issues.updateComment({ owner, repo, comment_id: botComment.id, body });
+              console.log("📝 Updated existing review comment.");
+            } else {
+              await octokit.issues.createComment({ owner, repo, issue_number, body });
+              console.log("🆕 Posted new review comment.");
+            }
+          }
+
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -123,12 +140,7 @@ jobs:
 
             // 4. Generate Dashboard & Post Comment
             if (issues.length === 0) {
-              await octokit.issues.createComment({
-                owner: process.env.REPO_OWNER,
-                repo: process.env.REPO_NAME,
-                issue_number: Number(process.env.PR_NUMBER),
-                body: `## 🟩 LGTM! \n\n${summary}\n\nNo issues found by **${modelName}**. Great job!`
-              });
+              await postOrUpdateComment(octokit, `## 🟩 LGTM! \n\n${summary}\n\nNo issues found by **${modelName}**. Great job!`);
             } else {
                // A. Calculate Scores
                const categories = ["Bug Risk", "Security", "Performance", "Clean Code", "Maintainability", "Best Practices"];
@@ -179,12 +191,7 @@ jobs:
                                    `\`\`\`json\n${jsonStr}\n\`\`\`\n` +
                                    `</details>`;
 
-               await octokit.issues.createComment({
-                owner: process.env.REPO_OWNER,
-                repo: process.env.REPO_NAME,
-                issue_number: Number(process.env.PR_NUMBER),
-                body: commentBody
-              });
+               await postOrUpdateComment(octokit, commentBody);
 
               // D. Block Merge
               if (shouldFailBuild) {
