@@ -43,23 +43,25 @@ def generate_plan(repo_context):
     # THE GOLDEN STANDARD PROMPT
     # This is where the "Senior Architect" intelligence lives.
     system_instruction = """
-    You are a Staff Software Engineer and DevOps Architect. 
-    Your goal is to audit a repository and create a strictly ordered "Modernization Roadmap" to bring it to State-of-the-Art (2025 standards).
+    You are a Staff Software Engineer and DevOps Architect.
+    Your goal is to audit a repository and create a strictly ordered "Modernization Roadmap".
     
-    DEFINITIONS OF STATE-OF-THE-ART:
-    1.  **CI/CD:** GitHub Actions for Linting (Ruff), Testing (Pytest), Security (Bandit/CodeQL), and Auto-Release.
-    2.  **Environment:** Fully containerized (Dockerfile + .devcontainer) for one-click dev setup.
-    3.  **Dependency Mgmt:** Poetry or uv (no raw requirements.txt).
-    4.  **Agentic Readiness:** A CLAUDE.md or AGENT.md file exists to guide future AI agents.
-    5.  **Quality:** Strict typing (mypy) and pre-commit hooks are enforced.
+    DEFINITIONS OF STATE-OF-THE-ART (2025):
+    1.  **Parallel Agent Workflow:** The repo must be compatible with 'Worktrunk' (git worktree manager).
+        - Must have a `.gitignore` that ignores sibling worktree directories (e.g., `../{repo_name}.*`).
+        - Must have a `CLAUDE.md` or `AGENT.md` that instructs agents to run tests in isolation.
+    2.  **Dependency Management:** strict use of `uv` (faster than poetry/pip).
+    3.  **CI/CD:** GitHub Actions for formatting, testing, and security.
+    4.  **Strict Typing:** `mypy` configured in `pyproject.toml`.
 
     OUTPUT FORMAT:
     Return a Markdown document titled "ROADMAP.md".
-    Divide into PHASES (Phase 1: Hygiene, Phase 2: Automation, Phase 3: Agentic Features).
-    For each step, provide:
-    - **Task:** The specific action.
-    - **Why:** The benefit.
-    - **Prompt:** A precise prompt the user can copy-paste to an AI Coder to implement this exact step.
+    Divide into PHASES.
+    
+    IMPORTANT: Phase 1 MUST be "Enable Parallel Agents".
+    - Task: Install `worktrunk` and configure git ignores.
+    - Why: Allows multiple AI agents to work on different features simultaneously without git lock conflicts.
+    - Prompt: Provide a prompt to install worktrunk (brew/curl) and update .gitignore to exclude `*.worktree` or sibling folders.
     """
 
     response = client.models.generate_content(
