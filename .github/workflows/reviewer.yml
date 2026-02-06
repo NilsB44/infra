@@ -42,53 +42,48 @@ jobs:
           // 1. GLOBAL RULES FETCHER
           async function getGlobalRules(owner) {
             try {
+                // Adjust branch 'main' if your default branch is different (e.g., 'master')
                 const url = `https://raw.githubusercontent.com/${owner}/infra/main/GEMINI.md`;
                 console.log(`📖 Fetching global rules from: ${url}`);
                 const response = await fetch(url);
                 if (!response.ok) return "";
                 const text = await response.text();
+                // Ensure we got actual text, not an error page
                 return text.length < 10 ? "" : `\n\n### 🌍 USER-DEFINED GLOBAL STANDARDS\nYou MUST enforce these rules strictly:\n${text}\n`;
             } catch (e) {
+                console.warn("⚠️ Failed to load GEMINI.md global rules.");
                 return "";
-            }
-          }
-
-          // 2. MODEL AUTO-DISCOVERY
-          async function getBestWorkingModel(apiKey) {
-            console.log("🔍 Auto-discovering available models...");
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-                const data = await response.json();
-                if (!data.models) throw new Error("No models returned.");
-                
-                const availableModels = data.models
-                    .filter(m => m.supportedGenerationMethods.includes("generateContent"))
-                    .map(m => m.name.replace("models/", ""));
-
-                const priorities = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp", "gemini-pro"];
-                for (const p of priorities) { if (availableModels.includes(p)) return p; }
-                return availableModels.find(m => m.includes("flash")) || availableModels[0];
-            } catch (e) {
-                return "gemini-1.5-flash-latest";
             }
           }
 
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-            const modelName = await getBestWorkingModel(process.env.GEMINI_API_KEY);
+            
+            // 👇 OPTIMIZED: Hardcoded model to save API calls (since 2.5-flash works for you)
+            const modelName = "gemini-2.5-flash"; 
             const model = genAI.getGenerativeModel({ model: modelName });
+            
             const globalRules = await getGlobalRules(process.env.REPO_OWNER);
 
             console.log(`🚀 Reviewing with: ${modelName}`);
 
-            // 3. Git Diff
+            // 2. Git Diff
             const baseBranch = process.env.BASE_BRANCH || 'main';
             try { execSync(`git fetch origin ${baseBranch} --depth=1`); } catch (e) {}
-            const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
+            
+            // Safety: diff might fail if branch history is weird
+            let diff = "";
+            try {
+                diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
+            } catch (e) {
+                console.warn("Git diff failed. Trying simpler diff...");
+                diff = execSync(`git diff HEAD^ HEAD`).toString();
+            }
+
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
-            // 4. Prompt
+            // 3. Prompt Construction
             const prompt = `
               You are a Senior Code Reviewer. Review the provided git diff.
               
@@ -120,12 +115,13 @@ jobs:
                  reviewData = JSON.parse(text);
             } catch (e) {
                 console.error("Review generation failed:", e.message);
+                // If it fails (e.g. Rate Limit), we exit with error so you know it failed
                 process.exit(1); 
             }
 
             const { summary, issues } = reviewData;
 
-            // 5. Generate Dashboard
+            // 4. Generate Dashboard & Post Comment
             if (issues.length === 0) {
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
@@ -138,7 +134,7 @@ jobs:
                const categories = ["Bug Risk", "Security", "Performance", "Clean Code", "Maintainability", "Best Practices"];
                let summaryTable = "| Category | Status | Issues |\n|---|---|---|\n";
                let shouldFailBuild = false;
-               let totalIssues = 0; // 👇 New Counter
+               let totalIssues = 0;
                
                categories.forEach(cat => {
                    const count = issues.filter(c => c.category === cat).length;
@@ -157,7 +153,7 @@ jobs:
                    summaryTable += `| **${cat}** | ${icon} | ${count} |\n`;
                });
 
-               // 👇 NEW: Fail if 3+ issues of ANY kind found
+               // Limit: Fail if 3+ issues of ANY kind found
                if (totalIssues >= 3) {
                    shouldFailBuild = true;
                    console.log(`❌ Blocking merge: ${totalIssues} total issues found (Limit is 2).`);
