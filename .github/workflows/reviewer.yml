@@ -42,19 +42,13 @@ jobs:
           // 1. GLOBAL RULES FETCHER
           async function getGlobalRules(owner) {
             try {
-                // Assuming 'infra' repo is public and named 'infra'
                 const url = `https://raw.githubusercontent.com/${owner}/infra/main/GEMINI.md`;
                 console.log(`📖 Fetching global rules from: ${url}`);
                 const response = await fetch(url);
-                if (!response.ok) {
-                    console.warn(`⚠️ Could not fetch GEMINI.md (Status: ${response.status}). Proceeding with defaults.`);
-                    return "";
-                }
+                if (!response.ok) return "";
                 const text = await response.text();
-                if (text.length < 10) return "";
-                return `\n\n### 🌍 USER-DEFINED GLOBAL STANDARDS\nYou MUST enforce these rules strictly:\n${text}\n`;
+                return text.length < 10 ? "" : `\n\n### 🌍 USER-DEFINED GLOBAL STANDARDS\nYou MUST enforce these rules strictly:\n${text}\n`;
             } catch (e) {
-                console.warn("⚠️ Failed to load global rules:", e.message);
                 return "";
             }
           }
@@ -84,8 +78,6 @@ jobs:
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
             const modelName = await getBestWorkingModel(process.env.GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: modelName });
-
-            // Fetch Global Rules
             const globalRules = await getGlobalRules(process.env.REPO_OWNER);
 
             console.log(`🚀 Reviewing with: ${modelName}`);
@@ -96,7 +88,7 @@ jobs:
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
-            // 4. Prompt Construction
+            // 4. Prompt
             const prompt = `
               You are a Senior Code Reviewer. Review the provided git diff.
               
@@ -146,10 +138,12 @@ jobs:
                const categories = ["Bug Risk", "Security", "Performance", "Clean Code", "Maintainability", "Best Practices"];
                let summaryTable = "| Category | Status | Issues |\n|---|---|---|\n";
                let shouldFailBuild = false;
+               let totalIssues = 0; // 👇 New Counter
                
                categories.forEach(cat => {
                    const count = issues.filter(c => c.category === cat).length;
                    let icon = "🟩";
+                   totalIssues += count;
                    
                    // Critical Categories turn RED and block the build
                    if (cat === "Bug Risk" || cat === "Security") {
@@ -162,6 +156,12 @@ jobs:
                    }
                    summaryTable += `| **${cat}** | ${icon} | ${count} |\n`;
                });
+
+               // 👇 NEW: Fail if 3+ issues of ANY kind found
+               if (totalIssues >= 3) {
+                   shouldFailBuild = true;
+                   console.log(`❌ Blocking merge: ${totalIssues} total issues found (Limit is 2).`);
+               }
 
                // B. Format Details
                let detailsText = "\n### 📝 Detailed Review\n";
@@ -190,9 +190,9 @@ jobs:
                 body: commentBody
               });
 
-              // D. Block Merge if Critical
+              // D. Block Merge
               if (shouldFailBuild) {
-                  console.error("❌ Blocking merge due to Critical Issues (Security/Bug Risk).");
+                  console.error("❌ Blocking merge due to Critical Issues or Excessive Warnings.");
                   process.exit(1); 
               }
             }
