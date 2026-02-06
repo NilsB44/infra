@@ -39,11 +39,13 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
-          // 👇 DEFINING THE MODEL LADDER
+          // 👇 UPDATED MODEL LIST (Exact Names)
           const MODEL_PRIORITY = [
-            "gemini-2.0-flash",       // 1. Try the smart new one
-            "gemini-1.5-flash",       // 2. Fallback to stable
-            "gemini-1.5-flash-8b"     // 3. Last resort (High limits)
+            "gemini-2.0-flash",           // 1. Try standard 2.0
+            "gemini-2.0-flash-exp",       // 2. Try experimental 2.0 (often needed)
+            "gemini-1.5-flash-latest",    // 3. Stable Flash (explicit 'latest' fixes 404)
+            "gemini-1.5-flash-002",       // 4. Specific version fallback
+            "gemini-pro"                  // 5. "Old Reliable" (The Nuclear Option)
           ];
 
           async function generateWithFallback(genAI, prompt) {
@@ -54,7 +56,7 @@ jobs:
               try {
                 const model = genAI.getGenerativeModel({ model: modelName });
                 
-                // timeout promise to prevent hanging
+                // 30s timeout to prevent hanging
                 const timeout = new Promise((_, reject) => 
                     setTimeout(() => reject(new Error("Request timeout")), 30000)
                 );
@@ -72,11 +74,15 @@ jobs:
 
               } catch (error) {
                 console.warn(`❌ Failed with ${modelName}. Error: ${error.message}`);
-                // If it's a "Safety" block, waiting won't help, but we try next model anyway.
-                // If it's 429 (Rate Limit) or 404 (Not Found), we immediately loop to the next.
+                
+                // Capture error but continue loop
                 lastError = error;
-                // Add a tiny pause between retries to be polite
-                await new Promise(r => setTimeout(r, 2000));
+                
+                // If 429 (Rate Limit), wait a bit. If 404, fail fast.
+                if (error.status === 429 || error.message.includes('429')) {
+                    console.log("⏳ Rate limit hit. Pausing 5s before next model...");
+                    await new Promise(r => setTimeout(r, 5000));
+                }
               }
             }
             throw new Error(`All models failed. Last error: ${lastError?.message}`);
@@ -107,14 +113,14 @@ jobs:
               ${diff.substring(0, 30000)} 
             `;
             
-            // 3. CALL GEMINI WITH FALLBACKS
+            // 3. CALL GEMINI
             let response, usedModel;
             try {
                 const result = await generateWithFallback(genAI, prompt);
                 response = result.text.replace(/```json|```/g, "").trim();
                 usedModel = result.usedModel;
             } catch (e) {
-                console.error("Review failed:", e);
+                console.error("FATAL: Review failed completely.", e);
                 process.exit(1);
             }
             
@@ -131,12 +137,13 @@ jobs:
               });
             } else {
                const jsonStr = JSON.stringify(comments, null, 2);
-               const commentBody = `Gemini found ${comments.length} issues.\n` +
-                                   `<sub>🤖 Reviewed by **${usedModel}**</sub>\n\n` +
-                                   `<details>\n` +
-                                   `<summary>Click to see raw JSON for CLI</summary>\n\n` +
-                                   `\`\`\`json\n${jsonStr}\n\`\`\`\n` +
-                                   `</details>`;
+               // Safe string concatenation to avoid YAML errors
+               const commentBody = "Gemini found " + comments.length + " issues.\n" +
+                                   "<sub>🤖 Reviewed by **" + usedModel + "**</sub>\n\n" +
+                                   "<details>\n" +
+                                   "<summary>Click to see raw JSON for CLI</summary>\n\n" +
+                                   "```json\n" + jsonStr + "\n```\n" +
+                                   "</details>";
 
                await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
@@ -144,7 +151,7 @@ jobs:
                 issue_number: Number(process.env.PR_NUMBER),
                 body: commentBody
               });
-              console.log("Review posted.");
+              console.log("Review posted successfully.");
             }
           }
           run().catch(e => { console.error(e); process.exit(1); });
