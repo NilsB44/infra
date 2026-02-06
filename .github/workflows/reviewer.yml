@@ -39,122 +39,125 @@ jobs:
           const { Octokit } = require("@octokit/rest");
           const { execSync } = require("child_process");
 
-          // 👇 1. AUTO-DISCOVERY FUNCTION
+          // 1. AUTO-DISCOVERY
           async function getBestWorkingModel(apiKey) {
             console.log("🔍 Auto-discovering available models...");
             try {
-                // We fetch the list directly from the API to see what YOUR key can see
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
                 const data = await response.json();
+                if (!data.models) throw new Error("No models returned.");
                 
-                if (!data.models) throw new Error("No models returned by API.");
-
-                // Filter for models that can generate content
                 const availableModels = data.models
                     .filter(m => m.supportedGenerationMethods.includes("generateContent"))
-                    .map(m => m.name.replace("models/", "")); // Strip 'models/' prefix
+                    .map(m => m.name.replace("models/", ""));
 
-                console.log("📋 Available Models:", availableModels.join(", "));
-
-                // Priority Logic: Try to find specific families in order
-                const priorities = [
-                    "gemini-1.5-flash",       // Stable Standard
-                    "gemini-1.5-flash-001",   // Specific Version
-                    "gemini-1.5-pro",         // Stable Pro
-                    "gemini-2.0-flash-exp",   // Experimental
-                    "gemini-pro"              // Legacy
-                ];
-
-                // Find the first priority that exists in your available list
-                for (const preferred of priorities) {
-                    if (availableModels.includes(preferred)) {
-                        return preferred;
-                    }
-                }
-
-                // Fallback: If none of our favorites exist, just take the first "flash" model found
-                const anyFlash = availableModels.find(m => m.includes("flash"));
-                if (anyFlash) return anyFlash;
-
-                // Ultimate Fallback: Just take the first valid model
-                return availableModels[0];
-
+                // Priority: Fast Flash models first, then Pro
+                const priorities = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp", "gemini-pro"];
+                for (const p of priorities) { if (availableModels.includes(p)) return p; }
+                return availableModels.find(m => m.includes("flash")) || availableModels[0];
             } catch (e) {
-                console.error("⚠️ Auto-discovery failed:", e.message);
-                console.log("Falling back to safe default 'gemini-1.5-flash-latest'");
-                return "gemini-1.5-flash-latest";
+                return "gemini-1.5-flash-latest"; // Safe fallback
             }
           }
 
           async function run() {
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-            // 👇 2. DYNAMIC MODEL SELECTION
-            // Find the correct model name for this specific API Key
             const modelName = await getBestWorkingModel(process.env.GEMINI_API_KEY);
-            console.log(`🚀 Selected Model: ${modelName}`);
-
             const model = genAI.getGenerativeModel({ model: modelName });
 
-            // 3. Git Logic
+            console.log(`🚀 Reviewing with: ${modelName}`);
+
+            // 2. Git Diff
             const baseBranch = process.env.BASE_BRANCH || 'main';
             try { execSync(`git fetch origin ${baseBranch} --depth=1`); } catch (e) {}
-
             const diff = execSync(`git diff origin/${baseBranch}...HEAD`).toString();
-
             if (!diff || diff.length < 5) return console.log("No changes detected.");
 
+            // 3. Prompt (Now asks for Summary + Issues)
             const prompt = `
-              You are a Senior Code Reviewer. Review the following git diff.
-              Identify critical bugs, security issues, and bad practices.
-              Output purely a JSON array of objects. No markdown formatting.
-              Format: [{"path": "filename", "line": line_number, "body": "comment"}]
-              If no issues, output [].
+              You are a Senior Code Reviewer. Review the provided git diff.
+              
+              1. **Summary**: Write a 2-sentence executive summary of what this PR does.
+              2. **Issues**: Identify issues and classify them strictly into:
+                 - "Bug Risk" (Logical errors, potential crashes) [BLOCKING]
+                 - "Security" (Vulnerabilities, secrets, unsafe input) [BLOCKING]
+                 - "Performance" (Inefficient loops, blocking sync calls)
+                 - "Clean Code" (Naming, formatting, clutter)
+                 - "Maintainability" (Complexity, structure)
+                 - "Best Practices" (Idiomatic usage)
+
+              Output PURE JSON object (no markdown). Structure:
+              {
+                "summary": "The summary string...",
+                "issues": [{"path": "file", "line": 0, "category": "CategoryName", "body": "comment"}]
+              }
               
               DIFF:
-              ${diff.substring(0, 30000)} 
+              ${diff.substring(0, 30000)}
             `;
-            
-            // 4. Generate with Retry logic for Rate Limits (429)
-            let responseText;
+
+            let reviewData = { summary: "No summary available.", issues: [] };
             try {
                  const result = await model.generateContent(prompt);
-                 responseText = result.response.text();
-            } catch (error) {
-                // If the auto-selected model hits a rate limit (429), we can't easily fix it 
-                // without complex logic, so we fail gracefully.
-                console.error(`❌ Model ${modelName} failed.`);
-                console.error(error.message);
-                
-                // If it was a 429, we print a friendly message
-                if (error.message.includes("429")) {
-                    console.log("⚠️ You hit the Free Tier rate limit. Try again in a minute.");
-                }
+                 const text = result.response.text().replace(/```json|```/g, "").trim();
+                 reviewData = JSON.parse(text);
+            } catch (e) {
+                console.error("Review generation failed:", e.message);
                 process.exit(1); 
             }
 
-            const response = responseText.replace(/```json|```/g, "").trim();
-            
-            let comments;
-            try { comments = JSON.parse(response); } catch (e) { comments = []; }
+            const { summary, issues } = reviewData;
 
-            // 5. Post Comments
-            if (comments.length === 0) {
+            // 4. Generate Dashboard
+            if (issues.length === 0) {
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: Number(process.env.PR_NUMBER),
-                body: `LGTM! 🚀 No issues found. (Reviewed by ${modelName})`
+                body: `## 🟩 LGTM! \n\n${summary}\n\nNo issues found by **${modelName}**. Great job!`
               });
             } else {
-               const jsonStr = JSON.stringify(comments, null, 2);
-               const commentBody = "Gemini found " + comments.length + " issues.\n" +
-                                   "<sub>🤖 Reviewed by **" + modelName + "**</sub>\n\n" +
-                                   "<details>\n" +
-                                   "<summary>Click to see raw JSON for CLI</summary>\n\n" +
-                                   "```json\n" + jsonStr + "\n```\n" +
-                                   "</details>";
+               // A. Calculate Scores
+               const categories = ["Bug Risk", "Security", "Performance", "Clean Code", "Maintainability", "Best Practices"];
+               let summaryTable = "| Category | Status | Issues |\n|---|---|---|\n";
+               let shouldFailBuild = false;
+               
+               categories.forEach(cat => {
+                   const count = issues.filter(c => c.category === cat).length;
+                   let icon = "🟩";
+                   
+                   // Critical Categories turn RED and block the build
+                   if (cat === "Bug Risk" || cat === "Security") {
+                       if (count > 0) {
+                           icon = "🔴";
+                           shouldFailBuild = true;
+                       }
+                   } else if (count > 0) {
+                       icon = "⚠️";
+                   }
+                   summaryTable += `| **${cat}** | ${icon} | ${count} |\n`;
+               });
+
+               // B. Format Details
+               let detailsText = "\n### 📝 Detailed Review\n";
+               issues.forEach(c => {
+                   const emoji = c.category === "Security" ? "🔒" : c.category === "Performance" ? "⚡" : "💡";
+                   detailsText += `- **${c.path}:${c.line}** (${emoji} ${c.category})\n  ${c.body}\n\n`;
+               });
+
+               // C. Construct Body
+               const jsonStr = JSON.stringify(issues, null, 2);
+               const commentBody = `## 🤖 AI Code Review \n` +
+                                   `> ${summary}\n\n` +
+                                   `<sub>Model: ${modelName}</sub>\n\n` +
+                                   summaryTable + 
+                                   detailsText +
+                                   `\n---\n` +
+                                   `<details>\n` +
+                                   `<summary>🛠️ <b>Raw JSON for Auto-Fixer</b></summary>\n\n` +
+                                   `\`\`\`json\n${jsonStr}\n\`\`\`\n` +
+                                   `</details>`;
 
                await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
@@ -162,7 +165,12 @@ jobs:
                 issue_number: Number(process.env.PR_NUMBER),
                 body: commentBody
               });
-              console.log("Review posted.");
+
+              // D. Block Merge if Critical
+              if (shouldFailBuild) {
+                  console.error("❌ Blocking merge due to Critical Issues (Security/Bug Risk).");
+                  process.exit(1); // This fails the GitHub Action
+              }
             }
           }
           run().catch(e => { console.error(e); process.exit(1); });
