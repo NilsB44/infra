@@ -1,4 +1,5 @@
 import glob
+import logging
 import os
 
 from google import genai  # Or anthropic / openai
@@ -6,6 +7,8 @@ from google import genai  # Or anthropic / openai
 # CONFIGURATION
 TARGET_REPO = "../WebScraper" # Change this to your target
 API_KEY = os.environ.get("GEMINI_API_KEY")
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 def get_repo_context(repo_path: str) -> str:
     """
@@ -33,8 +36,8 @@ def get_repo_context(repo_path: str) -> str:
             try:
                 with open(filepath) as f:
                     context += f"\n#### FILE: {os.path.basename(filepath)}\n```\n{f.read()}\n```\n"
-            except Exception:
-                pass # Skip if can't read
+            except (OSError, UnicodeDecodeError) as e:
+                logging.warning(f"Could not read file {filepath}: {e}")
 
     return context
 
@@ -74,14 +77,14 @@ def generate_plan(repo_context: str) -> str:
     return response.text or ""
 
 if __name__ == "__main__":
-    print(f"🔍 Scanning {TARGET_REPO}...")
+    logging.info(f"🔍 Scanning {TARGET_REPO}...")
     context = get_repo_context(TARGET_REPO)
 
-    print("🧠 Planning modernization strategy...")
+    logging.info("🧠 Planning modernization strategy...")
     plan = generate_plan(context)
 
     output_path = os.path.join(TARGET_REPO, "ROADMAP.md")
     with open(output_path, "w") as f:
         f.write(plan)
 
-    print(f"✅ Plan generated! Check {output_path}")
+    logging.info(f"✅ Plan generated! Check {output_path}")

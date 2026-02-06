@@ -1,5 +1,10 @@
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+
 def main() -> None:
-    print("Hello from infra!")
+    logging.info("Hello from infra!")
 
 
 if __name__ == "__main__":

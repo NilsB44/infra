@@ -31,7 +31,7 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **Functions:** A function should do one thing only. If it's over 50 lines, it likely needs splitting.
 
 ## 🌳 Workflow & Git Governance
-- **Main Branch Protection:** The `main` branch is READ-ONLY. Direct pushes to `main` are strictly forbidden.
-- **Pull Requests (PRs):** All changes, features, or bug fixes MUST be submitted via a Pull Request.
-- **Agent Compliance:** AI agents must always create a new branch for their work (e.g., using `worktrunk`) and never attempt to push directly to the primary branch.
-- **Review Requirement:** PRs must be reviewed (e.g., by the `gemini-reviewer` or a human) before merging.
+- **Main Branch Protection:** The `main` branch is READ-ONLY. Direct pushes to `main` are strictly forbidden to prevent accidental regressions.
+- **Pull Requests (PRs):** All changes MUST be submitted via a Pull Request.
+- **Agent Compliance:** AI agents must always create a new branch (e.g., via `worktrunk`) and never push to the primary branch.
+- **Automated Review:** PRs must pass all automated status checks (e.g., `gemini-reviewer`, tests, linting) before being merged. Solo developers may self-merge once these checks are green.
