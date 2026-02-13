@@ -1,7 +1,5 @@
-name: "call-review / review"
+name: Review
 on: [pull_request]
 jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Passing"
+  call-review:
+    uses: ./.github/workflows/reviewer.yml
