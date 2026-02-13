@@ -18,7 +18,10 @@ def get_repo_context(repo_path: str) -> str:
         for file in files:
             file_path = os.path.join(root, file)
             context += f"- {os.path.relpath(file_path, repo_path)}\n"
-    key_files = ["pyproject.toml", "package.json", "requirements.txt", ".github/workflows/*.yml", "README.md", "Dockerfile"]
+    key_files = [
+        "pyproject.toml", "package.json", "requirements.txt",
+        ".github/workflows/*.yml", "README.md", "Dockerfile"
+    ]
     context += "\n### KEY CONFIGURATION FILES:\n"
     for pattern in key_files:
         full_pattern = os.path.join(repo_path, pattern)
