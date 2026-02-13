@@ -1,0 +1,7 @@
+name: Reusable
+on: workflow_call
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Passing"
