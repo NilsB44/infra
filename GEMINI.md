@@ -35,3 +35,9 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **Pull Requests (PRs):** All changes MUST be submitted via a Pull Request.
 - **Agent Compliance:** AI agents must always create a new branch (e.g., via `worktrunk`) and never push to the primary branch.
 - **Automated Review:** PRs must pass all automated status checks (e.g., `gemini-reviewer`, tests, linting) before being merged. Solo developers may self-merge once these checks are green.
+- **CI/CD Reliability:** All scripts intended for CI/CD MUST implement robust error handling (try/except) and ensure a non-zero exit code (e.g., `sys.exit(1)`) on critical failures to prevent false-positive green builds.
+
+## 🤖 AI & LLM Standards
+- **Prompt Injection:** NEVER interpolate raw, unvalidated external input into LLM prompts. Implement a sanitization layer to strip or escape problematic characters (backticks, quotes, control characters).
+- **Model Fallbacks:** Implement model-agnostic retry logic with fallbacks to handle provider outages or quota limits (429s).
+- **Async Throttling:** Always use non-blocking `asyncio.sleep` for rate-limiting or throttling in async LLM services.

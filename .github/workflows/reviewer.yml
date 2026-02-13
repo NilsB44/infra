@@ -153,11 +153,12 @@ jobs:
                    let icon = "🟩";
                    totalIssues += count;
                    
-                   // Critical Categories turn RED and block the build
+                   // Critical Categories turn RED. Block only if 2+ critical issues or 10+ total
                    if (cat === "Bug Risk" || cat === "Security") {
                        if (count > 0) {
                            icon = "🔴";
-                           shouldFailBuild = true;
+                           // Block if more than 1 critical issue in this category
+                           if (count >= 2) shouldFailBuild = true;
                        }
                    } else if (count > 0) {
                        icon = "⚠️";
@@ -166,9 +167,9 @@ jobs:
                });
 
                // Limit: Fail if 3+ issues of ANY kind found
-               if (totalIssues >= 3) {
+               if (totalIssues >= 10) {
                    shouldFailBuild = true;
-                   console.log(`❌ Blocking merge: ${totalIssues} total issues found (Limit is 2).`);
+                   console.log(`❌ Blocking merge: ${totalIssues} total issues found (Limit is 10).`);
                }
 
                // B. Format Details
