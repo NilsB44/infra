@@ -1,0 +1,44 @@
+name: Gemini Guardian
+
+on:
+  pull_request:
+    paths:
+      - 'GEMINI.md'
+
+jobs:
+  protect-standards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for Bypass
+        id: bypass
+        run: |
+          if echo "${{ github.event.pull_request.body }}" | grep -q "BYPASS-GUARDIAN"; then
+            echo "Bypass detected!"
+            echo "status=true" >> $GITHUB_OUTPUT
+          else
+            echo "status=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate GEMINI.md changes
+        if: steps.bypass.outputs.status == 'false'
+        run: |
+          # Count lines in main vs current PR
+          MAIN_LINES=$(git show origin/main:GEMINI.md | wc -l)
+          PR_LINES=$(cat GEMINI.md | wc -l)
+          
+          echo "Main branch lines: $MAIN_LINES"
+          echo "PR branch lines: $PR_LINES"
+          
+          # Fail if PR significantly reduces the content (e.g. more than 10 lines reduction)
+          # unless it's a massive refactor which should use bypass
+          if [ "$PR_LINES" -lt "$((MAIN_LINES - 10))" ]; then
+            echo "❌ ERROR: GEMINI.md content reduced significantly ($PR_LINES vs $MAIN_LINES lines)."
+            echo "This looks like an accidental override."
+            echo "If this is intentional, add 'BYPASS-GUARDIAN' to your PR description."
+            exit 1
+          fi
+          echo "✅ Changes look reasonable."
