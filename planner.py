@@ -10,6 +10,7 @@ API_KEY = os.environ.get("GEMINI_API_KEY")
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+
 def get_repo_context(repo_path: str) -> str:
     context = f"## REPOSITORY SCAN: {repo_path}\n\n"
     context += "### FILE STRUCTURE:\n"
@@ -19,8 +20,12 @@ def get_repo_context(repo_path: str) -> str:
             file_path = os.path.join(root, file)
             context += f"- {os.path.relpath(file_path, repo_path)}\n"
     key_files = [
-        "pyproject.toml", "package.json", "requirements.txt",
-        ".github/workflows/*.yml", "README.md", "Dockerfile"
+        "pyproject.toml",
+        "package.json",
+        "requirements.txt",
+        ".github/workflows/*.yml",
+        "README.md",
+        "Dockerfile",
     ]
     context += "\n### KEY CONFIGURATION FILES:\n"
     for pattern in key_files:
@@ -33,6 +38,7 @@ def get_repo_context(repo_path: str) -> str:
                 pass
     return context
 
+
 def generate_plan(repo_context: str) -> str:
     client = genai.Client(api_key=API_KEY)
     system_instruction = """
@@ -44,6 +50,7 @@ Phase 1 MUST be "Enable Parallel Agents" using git worktrees.
         contents=[system_instruction, f"Here is the current repository context:\n{repo_context}"],
     )
     return response.text or ""
+
 
 if __name__ == "__main__":
     logging.info(f"🔍 Scanning {TARGET_REPO}...")
