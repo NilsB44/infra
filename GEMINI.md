@@ -29,6 +29,7 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **DRY (Don't Repeat Yourself):** Logic duplicated 3+ times should be refactored into a helper.
 - **Naming:** Variables should be descriptive (`user_id` vs `u`).
 - **Functions:** A function should do one thing only. If it's over 50 lines, it likely needs splitting.
+- **Documentation:** Every feature or architectural change MUST be reflected in the project's `README.md`. Agents are responsible for keeping documentation in sync with code changes.
 
 ## 🌳 Workflow & Git Governance
 - **Main Branch Protection:** The `main` branch is READ-ONLY. Direct pushes to `main` are strictly forbidden to prevent accidental regressions.

@@ -16,8 +16,8 @@ jobs:
       - name: Check for Bypass
         id: bypass
         run: |
-          if echo "${{ github.event.pull_request.body }}" | grep -q "BYPASS-GUARDIAN"; then
-            echo "Bypass detected!"
+          if echo "${{ github.event.pull_request.body }}" | grep -q "BYPASS-GUARDIAN" && echo "${{ github.event.pull_request.body }}" | grep -q "SIGNED-OFF-BY-OWNER"; then
+            echo "Bypass authorized by owner!"
             echo "status=true" >> $GITHUB_OUTPUT
           else
             echo "status=false" >> $GITHUB_OUTPUT
