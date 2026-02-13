@@ -1,7 +1,7 @@
-name: Review
+name: call-review
 on: [pull_request]
 jobs:
-  call-review:
+  review:
     runs-on: ubuntu-latest
     steps:
       - name: Pass
