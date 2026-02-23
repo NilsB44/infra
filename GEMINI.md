@@ -20,3 +20,7 @@ This repository hosts the "Central Nervous System" of the project ecosystem.
 ### 📦 Dependencies
 - Use `uv` for all Python dependency management.
 - Keep `trending_tech.json` as the source of truth for the Radar's last scan.
+
+## 🌳 Workflow & Git Governance
+- **Pull Before Push:** Always pull the latest code from `main` before starting new work.
+- **Review First:** Before pushing any new PRs, review existing PRs using `gh pr list` and `gh pr view <id>` to understand the current state and avoid conflicts or redundant work.
