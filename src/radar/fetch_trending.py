@@ -3,7 +3,7 @@ import logging
 from datetime import datetime
 from typing import Any
 
-import requests  # type: ignore
+import requests
 from bs4 import BeautifulSoup
 
 # Configure logging
