@@ -19,7 +19,9 @@ class Executor:
             logger.info("No tasks queue found.")
             return []
         with open(TASKS_FILE) as f:
-            return json.load(f)
+            from typing import cast
+
+            return cast(list[dict[str, Any]], json.load(f))
 
     def execute_task(self, task: dict[str, Any]) -> None:
         project = task["project_name"]

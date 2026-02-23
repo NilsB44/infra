@@ -36,7 +36,9 @@ class Orchestrator:
             logger.error(f"❌ {TRENDING_FILE} not found. Run fetch_trending.py first.")
             return []
         with open(TRENDING_FILE) as f:
-            return json.load(f)
+            from typing import cast
+
+            return cast(list[dict[str, Any]], json.load(f))
 
     def analyze_relevance(
         self, trending_repos: list[dict[str, Any]], target_projects: list[str]
@@ -60,7 +62,7 @@ class Orchestrator:
             ]
         )
 
-        upgrades = []
+        upgrades: list[CandidateUpgrade] = []
 
         # In a real loop, we would read the actual project files (pyproject.toml, etc.)
         # For now, we simulate knowledge of the stack based on the repo names.
@@ -94,8 +96,10 @@ class Orchestrator:
                 config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
             )
 
+            from typing import cast
+
             if response.parsed:
-                upgrades = response.parsed
+                upgrades = cast(list[CandidateUpgrade], response.parsed)
                 logger.info(f"💡 Gemini identified {len(upgrades)} potential upgrades.")
 
         except Exception as e:

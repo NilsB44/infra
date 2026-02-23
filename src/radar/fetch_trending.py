@@ -3,7 +3,7 @@ import logging
 from datetime import datetime
 from typing import Any
 
-import requests
+import requests  # type: ignore
 from bs4 import BeautifulSoup
 
 # Configure logging
@@ -35,7 +35,8 @@ def fetch_trending_repos() -> list[dict[str, Any]]:
             if not title_tag:
                 continue
 
-            repo_path = title_tag.get("href", "").strip().lstrip("/")
+            href = title_tag.get("href")
+            repo_path = str(href).strip().lstrip("/") if href else ""
 
             # Description
             desc_tag = article.select_one("p.col-9")
