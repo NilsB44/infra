@@ -2,7 +2,4 @@ name: Review
 on: [pull_request]
 jobs:
   call-review:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Pass
-        run: echo "Bypassing review"
+    uses: ./.github/workflows/reviewer.yml
