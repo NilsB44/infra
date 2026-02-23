@@ -1,7 +1,7 @@
 import json
 import logging
 import os
-from typing import Any
+from typing import Any, cast
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -19,8 +19,6 @@ class Executor:
             logger.info("No tasks queue found.")
             return []
         with open(TASKS_FILE) as f:
-            from typing import cast
-
             return cast(list[dict[str, Any]], json.load(f))
 
     def execute_task(self, task: dict[str, Any]) -> None:
@@ -43,7 +41,7 @@ class Executor:
         if self.dry_run:
             logger.info("   🚧 DRY RUN MODE. Commands to execute:")
             for cmd in commands:
-                print(f"      $ {cmd}")
+                logger.info(f"      $ {cmd}")
         else:
             # Here we would implement the actual subprocess calls and file edits
             # utilizing the 'replace' logic or 'run_shell_command' patterns.

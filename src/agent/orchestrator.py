@@ -2,7 +2,7 @@ import json
 import logging
 import os
 import sys
-from typing import Any
+from typing import Any, cast
 
 from google import genai
 from pydantic import BaseModel, Field
@@ -36,8 +36,6 @@ class Orchestrator:
             logger.error(f"❌ {TRENDING_FILE} not found. Run fetch_trending.py first.")
             return []
         with open(TRENDING_FILE) as f:
-            from typing import cast
-
             return cast(list[dict[str, Any]], json.load(f))
 
     def analyze_relevance(
@@ -95,8 +93,6 @@ class Orchestrator:
                 contents=prompt,
                 config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
             )
-
-            from typing import cast
 
             if response.parsed:
                 upgrades = cast(list[CandidateUpgrade], response.parsed)
