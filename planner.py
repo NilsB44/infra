@@ -1,6 +1,7 @@
 import glob
 import logging
 import os
+from typing import Any
 
 from google import genai
 
@@ -12,14 +13,14 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
 def get_repo_context(repo_path: str) -> str:
-    context = f"## REPOSITORY SCAN: {repo_path}\n\n"
+    context: str = f"## REPOSITORY SCAN: {repo_path}\n\n"
     context += "### FILE STRUCTURE:\n"
     for root, dirs, files in os.walk(repo_path):
         dirs[:] = [d for d in dirs if d not in [".git", "__pycache__", "node_modules", "venv", ".mypy_cache"]]
         for file in files:
-            file_path = os.path.join(root, file)
+            file_path: str = os.path.join(root, file)
             context += f"- {os.path.relpath(file_path, repo_path)}\n"
-    key_files = [
+    key_files: list[str] = [
         "pyproject.toml",
         "package.json",
         "requirements.txt",
@@ -29,7 +30,7 @@ def get_repo_context(repo_path: str) -> str:
     ]
     context += "\n### KEY CONFIGURATION FILES:\n"
     for pattern in key_files:
-        full_pattern = os.path.join(repo_path, pattern)
+        full_pattern: str = os.path.join(repo_path, pattern)
         for filepath in glob.glob(full_pattern):
             try:
                 with open(filepath) as f:
@@ -40,16 +41,16 @@ def get_repo_context(repo_path: str) -> str:
 
 
 def generate_plan(repo_context: str) -> str:
-    client = genai.Client(api_key=API_KEY)
-    system_instruction = """
+    client: genai.Client = genai.Client(api_key=API_KEY)
+    system_instruction: str = """
 You are a Staff Software Engineer and DevOps Architect. Divide into PHASES.
 Phase 1 MUST be "Enable Parallel Agents" using git worktrees.
 """
-    response = client.models.generate_content(
+    response: Any = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=[system_instruction, f"Here is the current repository context:\n{repo_context}"],
     )
-    return response.text or ""
+    return str(response.text or "")
 
 
 if __name__ == "__main__":

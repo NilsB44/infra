@@ -37,6 +37,7 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **Agent Compliance:** AI agents must always create a new branch (e.g., via `worktrunk`) and never push to the primary branch.
 - **Automated Review:** PRs must pass all automated status checks (e.g., `gemini-reviewer`, tests, linting) before being merged. Solo developers may self-merge once these checks are green.
 - **CI/CD Reliability:** All scripts intended for CI/CD MUST implement robust error handling (try/except) and ensure a non-zero exit code (e.g., `sys.exit(1)`) on critical failures to prevent false-positive green builds.
+- **Review First:** Before pushing any new PRs, review existing PRs using `gh pr list` and `gh pr view <id>` to understand the current state and avoid conflicts or redundant work.
 
 ## 🤖 AI & LLM Standards
 - **Prompt Injection:** NEVER interpolate raw, unvalidated external input into LLM prompts. Implement a sanitization layer to strip or escape problematic characters (backticks, quotes, control characters).
@@ -45,11 +46,19 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 
 ---
 
-## 📖 Global Usage
-To maintain consistency, all repositories in this ecosystem should reference this file in their local `GEMINI.md`:
+## 🏗️ Infrastructure Specifics
 
-```markdown
-# AI Coding Standards
-All development in this repository MUST adhere to the global standards:
-👉 **[Global Standards](https://github.com/NilsB44/infra/blob/main/GEMINI.md)**
-```
+### 🧠 Autonomous Agent
+This repository hosts the "Central Nervous System" of the project ecosystem.
+- **Radar:** Scans for external tech trends.
+- **Orchestrator:** Plans upgrades across all repos.
+- **Executor:** Implements changes via PRs.
+
+### 🛡️ Safety
+- All automated changes must go through a **Dry Run** phase or create **Draft PRs** first.
+- Direct pushes to other repos are forbidden; use Pull Requests.
+- The `weekly-overhaul` workflow is the heartbeat of this system.
+
+### 📦 Dependencies
+- Use `uv` for all Python dependency management.
+- Keep `trending_tech.json` as the source of truth for the Radar's last scan.
