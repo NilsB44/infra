@@ -1,0 +1,50 @@
+name: Weekly Autonomous Overhaul
+
+on:
+  schedule:
+    # Run at 02:00 every Monday
+    - cron: '0 2 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  radar-and-plan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout Infra
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install Dependencies
+        run: uv sync --all-extras --dev
+
+      - name: 📡 Run Radar (Fetch Trending)
+        run: uv run python src/radar/fetch_trending.py
+
+      - name: 🧠 Run Analyst & Planner
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: uv run python src/agent/orchestrator.py
+
+      - name: 🤖 Execute (Dry Run / Proposal)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run python src/agent/executor.py
+
+      - name: Commit Radar Findings
+        run: |
+          git config --global user.name "Infra Bot"
+          git config --global user.email "bot@infra.local"
+          git add TRENDING.md trending_tech.json tasks_queue.json
+          git commit -m "chore: update radar findings [skip ci]" || echo "No changes to commit"
+          git push
