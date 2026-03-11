@@ -37,6 +37,7 @@ You are a strict but helpful Senior Software Engineer. When reviewing code, you 
 - **Agent Compliance:** AI agents must always create a new branch (e.g., via `worktrunk`) and never push to the primary branch.
 - **Automated Review:** PRs must pass all automated status checks (e.g., `gemini-reviewer`, tests, linting) before being merged. Solo developers may self-merge once these checks are green.
 - **CI/CD Reliability:** All scripts intended for CI/CD MUST implement robust error handling (try/except) and ensure a non-zero exit code (e.g., `sys.exit(1)`) on critical failures to prevent false-positive green builds.
+- **Pipeline Compliance (Golden Rule):** Always ensure that changes submitted in a PR/MR pass the full pipeline (linting, tests, etc.). After pushing, you MUST check the pipeline status. If it fails, fix it immediately; only when the pipeline is green is the task considered ready.
 - **Review First:** Before pushing any new PRs, review existing PRs using `gh pr list` and `gh pr view <id>` to understand the current state and avoid conflicts or redundant work.
 
 ## 🤖 AI & LLM Standards
