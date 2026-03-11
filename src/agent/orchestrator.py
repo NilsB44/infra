@@ -7,6 +7,8 @@ from typing import Any, cast
 from google import genai
 from pydantic import BaseModel, Field
 
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -38,6 +40,26 @@ class Orchestrator:
         with open(TRENDING_FILE) as f:
             return cast(list[dict[str, Any]], json.load(f))
 
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        retry=retry_if_exception_type(Exception),
+        reraise=True
+    )
+    def _call_gemini(self, model: str, prompt: str) -> list[CandidateUpgrade]:
+        if not self.client:
+            return []
+
+        response = self.client.models.generate_content(
+            model=model,
+            contents=prompt,
+            config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
+        )
+
+        if response.parsed:
+            return cast(list[CandidateUpgrade], response.parsed)
+        return []
+
     def analyze_relevance(
         self, trending_repos: list[dict[str, Any]], target_projects: list[str]
     ) -> list[CandidateUpgrade]:
@@ -60,11 +82,6 @@ class Orchestrator:
             ]
         )
 
-        upgrades: list[CandidateUpgrade] = []
-
-        # In a real loop, we would read the actual project files (pyproject.toml, etc.)
-        # For now, we simulate knowledge of the stack based on the repo names.
-
         prompt = f"""
         You are a Senior DevOps Architect.
 
@@ -86,22 +103,17 @@ class Orchestrator:
         Return a JSON object with a list of 'candidates' matching the CandidateUpgrade schema.
         """
 
-        try:
-            # Using 'gemini-1.5-flash' for speed/cost.
-            response = self.client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=prompt,
-                config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
-            )
+        for model in ["gemini-2.0-flash", "gemini-1.5-flash"]:
+            try:
+                upgrades = self._call_gemini(model, prompt)
+                if upgrades:
+                    logger.info(f"💡 {model} identified {len(upgrades)} potential upgrades.")
+                    return upgrades
+            except Exception as e:
+                logger.warning(f"⚠️ Analysis with {model} failed: {e}. Trying fallback...")
 
-            if response.parsed:
-                upgrades = cast(list[CandidateUpgrade], response.parsed)
-                logger.info(f"💡 Gemini identified {len(upgrades)} potential upgrades.")
-
-        except Exception as e:
-            logger.error(f"❌ Gemini analysis failed: {e}")
-
-        return upgrades
+        logger.error("❌ All Gemini analysis attempts failed.")
+        return []
 
     def plan_tasks(self, upgrades: list[CandidateUpgrade]) -> None:
         """
