@@ -138,7 +138,16 @@ def main() -> None:
         sys.exit(1)
 
     # Define our managed repos
-    projects = ["WebScraper", "CarbonFootPrint", "Eco-audit-web", "infra"]
+    projects = [
+        "Buss",
+        "CarbonFootPrint",
+        "Eco-audit-web",
+        "infra",
+        "marketproj",
+        "pyttan",
+        "RAG",
+        "WebScraper",
+    ]
 
     candidates = orchestrator.analyze_relevance(trending, projects)
     orchestrator.plan_tasks(candidates)
