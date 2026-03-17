@@ -59,15 +59,27 @@ jobs:
       - name: 📢 Send Weekly Notification
         run: PYTHONPATH=. uv run python src/agent/weekly_summary.py
 
-      - name: Commit Findings
+      - name: Commit and Create PR for Findings
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "Infra Bot"
           git config --global user.email "bot@infra.local"
-          # Only add files that actually exist to avoid fatal errors
-          for f in TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md; do
+          
+          BRANCH_NAME="maintenance/weekly-overhaul-${{ github.run_id }}"
+          git checkout -b "$BRANCH_NAME"
+          
+          FILES_ADDED=false
+          for f in TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md SECURITY_REPORT.json MERGED_REPORT.json; do
             if [ -f "$f" ]; then
               git add "$f"
+              FILES_ADDED=true
             fi
           done
-          git commit -m "chore: update radar and pr findings [skip ci]" || echo "No changes to commit"
-          git push
+          
+          if [ "$FILES_ADDED" = true ] && git commit -m "chore: update maintenance findings [skip ci]"; then
+            git push origin "$BRANCH_NAME"
+            gh pr create --title "Weekly Maintenance Findings" --body "Automated update of maintenance findings and status reports." --head "$BRANCH_NAME" --base main
+          else
+            echo "No changes to commit"
+          fi

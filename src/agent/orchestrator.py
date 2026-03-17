@@ -39,8 +39,8 @@ class Orchestrator:
             return cast(list[dict[str, Any]], json.load(f))
 
     @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=1, min=4, max=10),
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=2, min=10, max=60),
         retry=retry_if_exception_type(Exception),
         reraise=True,
     )
