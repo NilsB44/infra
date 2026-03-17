@@ -58,6 +58,11 @@ jobs:
         run: |
           git config --global user.name "Infra Bot"
           git config --global user.email "bot@infra.local"
-          git add TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md
+          # Only add files that actually exist to avoid fatal errors
+          for f in TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md; do
+            if [ -f "$f" ]; then
+              git add "$f"
+            fi
+          done
           git commit -m "chore: update radar and pr findings [skip ci]" || echo "No changes to commit"
           git push

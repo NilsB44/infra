@@ -3,7 +3,7 @@ import logging
 import os
 from typing import Any
 
-from github import Github
+from github import Auth, Github
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -14,8 +14,6 @@ MANAGED_REPOS = [
     "NilsB44/CarbonCalculator",
     "NilsB44/Eco-audit-web",
     "NilsB44/infra",
-    "NilsB44/marknadsinfo",
-    "NilsB44/pyttan",
     "NilsB44/ai-coding-agent",
     "NilsB44/WebScraper",
 ]
@@ -23,7 +21,11 @@ MANAGED_REPOS = [
 
 class AutoMerger:
     def __init__(self, token: str | None) -> None:
-        self.gh = Github(token) if token else Github()
+        if token:
+            auth = Auth.Token(token)
+            self.gh = Github(auth=auth)
+        else:
+            self.gh = Github()
         self.merged_prs: list[dict[str, Any]] = []
 
     def process_repo(self, repo_full_name: str) -> None:
