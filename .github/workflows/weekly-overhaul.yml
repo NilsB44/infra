@@ -41,6 +41,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: PYTHONPATH=. uv run python src/agent/auto_merger.py
 
+      - name: 🛡️ Scan Security Alerts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: PYTHONPATH=. uv run python src/agent/security_fixer.py
+
       - name: 🧠 Run Analyst & Planner
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
