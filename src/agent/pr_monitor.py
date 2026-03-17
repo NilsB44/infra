@@ -2,7 +2,7 @@ import logging
 import os
 from dataclasses import dataclass
 
-from github import Github
+from github import Auth, Github
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -13,8 +13,6 @@ MANAGED_REPOS = [
     "NilsB44/CarbonCalculator",
     "NilsB44/Eco-audit-web",
     "NilsB44/infra",
-    "NilsB44/marknadsinfo",
-    "NilsB44/pyttan",
     "NilsB44/ai-coding-agent",
     "NilsB44/WebScraper",
 ]
@@ -33,7 +31,11 @@ class PRStatus:
 
 class PRMonitor:
     def __init__(self, token: str | None):
-        self.gh = Github(token) if token else Github()
+        if token:
+            auth = Auth.Token(token)
+            self.gh = Github(auth=auth)
+        else:
+            self.gh = Github()
 
     def get_open_prs(self, repo_full_name: str) -> list[PRStatus]:
         try:

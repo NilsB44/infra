@@ -101,7 +101,7 @@ class Orchestrator:
         Return a JSON object with a list of 'candidates' matching the CandidateUpgrade schema.
         """
 
-        for model in ["gemini-2.0-flash", "gemini-1.5-flash-002"]:
+        for model in ["gemini-2.0-flash", "gemini-1.5-flash"]:
             try:
                 upgrades = self._call_gemini(model, prompt)
                 if upgrades:
@@ -144,8 +144,6 @@ def main() -> None:
         "CarbonFootPrint",
         "Eco-audit-web",
         "infra",
-        "marketproj",
-        "pyttan",
         "RAG",
         "WebScraper",
     ]
@@ -155,8 +153,6 @@ def main() -> None:
         orchestrator.plan_tasks(candidates)
     except Exception as e:
         logger.error(f"🔥 Orchestrator failed during analysis: {e}")
-        # We don't exit with 1 here to avoid failing the whole CI pipeline
-        # for transient AI errors, unless we want strict enforcement.
 
 
 if __name__ == "__main__":
