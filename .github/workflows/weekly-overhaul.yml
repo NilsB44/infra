@@ -31,6 +31,11 @@ jobs:
       - name: 📡 Run Radar (Fetch Trending)
         run: uv run python src/radar/fetch_trending.py
 
+      - name: 🔍 Scan Open PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run python src/agent/pr_monitor.py
+
       - name: 🧠 Run Analyst & Planner
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -41,10 +46,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run python src/agent/executor.py
 
-      - name: Commit Radar Findings
+      - name: Commit Findings
         run: |
           git config --global user.name "Infra Bot"
           git config --global user.email "bot@infra.local"
-          git add TRENDING.md trending_tech.json tasks_queue.json
-          git commit -m "chore: update radar findings [skip ci]" || echo "No changes to commit"
+          git add TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md
+          git commit -m "chore: update radar and pr findings [skip ci]" || echo "No changes to commit"
           git push

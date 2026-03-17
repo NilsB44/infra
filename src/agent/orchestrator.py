@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import sys
 from typing import Any, cast
 
 from google import genai
@@ -134,8 +133,10 @@ class Orchestrator:
 def main() -> None:
     orchestrator = Orchestrator()
     trending = orchestrator.load_trending()
+
     if not trending:
-        sys.exit(1)
+        logger.warning("⚠️ No trending repositories to analyze. Skipping analysis.")
+        return
 
     # Define our managed repos
     projects = [
@@ -149,8 +150,13 @@ def main() -> None:
         "WebScraper",
     ]
 
-    candidates = orchestrator.analyze_relevance(trending, projects)
-    orchestrator.plan_tasks(candidates)
+    try:
+        candidates = orchestrator.analyze_relevance(trending, projects)
+        orchestrator.plan_tasks(candidates)
+    except Exception as e:
+        logger.error(f"🔥 Orchestrator failed during analysis: {e}")
+        # We don't exit with 1 here to avoid failing the whole CI pipeline
+        # for transient AI errors, unless we want strict enforcement.
 
 
 if __name__ == "__main__":
