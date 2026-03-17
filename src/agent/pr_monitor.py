@@ -1,25 +1,23 @@
-import json
 import logging
 import os
-import subprocess
 from dataclasses import dataclass
+
+from github import Github
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 MANAGED_REPOS = [
-    "Buss",
-    "CarbonFootPrint",
-    "Eco-audit-web",
-    "infra",
-    "marketproj",
-    "pyttan",
-    "RAG",
-    "WebScraper",
+    "NilsB44/Buss",
+    "NilsB44/CarbonCalculator",
+    "NilsB44/Eco-audit-web",
+    "NilsB44/infra",
+    "NilsB44/marknadsinfo",
+    "NilsB44/pyttan",
+    "NilsB44/ai-coding-agent",
+    "NilsB44/WebScraper",
 ]
-
-BASE_DIR = "/home/scila-nils/Documents/personal-repos"
 
 
 @dataclass
@@ -34,99 +32,48 @@ class PRStatus:
 
 
 class PRMonitor:
-    def __init__(self, repos_dir: str):
-        self.repos_dir = repos_dir
+    def __init__(self, token: str | None):
+        self.gh = Github(token) if token else Github()
 
-    def run_gh_command(self, repo_path: str, args: list[str], check: bool = True) -> str:
+    def get_open_prs(self, repo_full_name: str) -> list[PRStatus]:
         try:
-            result = subprocess.run(
-                ["gh"] + args,
-                cwd=repo_path,
-                capture_output=True,
-                text=True,
-                check=check,
-            )
-            return str(result.stdout.strip())
-        except subprocess.CalledProcessError as e:
-            if not check:
-                # If we don't want to check, return stdout even if exit code is non-zero
-                return str(e.stdout.strip() + "\n" + e.stderr.strip())
-            logger.error(f"Error running gh command in {repo_path}: {e.stderr}")
-            return ""
-        except Exception as e:
-            logger.error(f"Unexpected error running gh command: {e}")
-            return ""
-
-    def get_open_prs(self, repo_name: str) -> list[PRStatus]:
-        repo_path = os.path.join(self.repos_dir, repo_name)
-        if not os.path.exists(os.path.join(repo_path, ".git")):
-            logger.warning(f"⚠️ {repo_name} is not a git repository or doesn't exist.")
-            return []
-
-        # Get PR list as JSON
-        pr_list_json = self.run_gh_command(
-            repo_path,
-            ["pr", "list", "--state", "open", "--json", "number,title,author,url,mergeable"],
-        )
-
-        if not pr_list_json:
-            return []
-
-        try:
-            prs_data = json.loads(pr_list_json)
+            repo = self.gh.get_repo(repo_full_name)
+            prs = repo.get_pulls(state="open")
             pr_statuses = []
-            for pr in prs_data:
-                # Use 'gh pr checks' with JSON for reliable parsing
-                checks_json = self.run_gh_command(
-                    repo_path, ["pr", "checks", str(pr["number"]), "--json", "state"], check=False
-                )
 
-                checks_state = "SUCCESS"
-                try:
-                    checks_data = json.loads(checks_json)
-                    if not checks_data:
-                        checks_state = "NONE"
-                    else:
-                        for check in checks_data:
-                            state = check.get("state", "").upper()
-                            if state in ["FAILURE", "FAILING", "ERROR", "CANCELLED"]:
-                                checks_state = "FAILING"
-                                break
-                            if state in ["PENDING", "IN_PROGRESS", "QUEUED"]:
-                                checks_state = "PENDING"
-                                # Don't break, check if there's a failure too
-                except Exception:
-                    # Fallback to string matching if JSON fails
-                    if "failing" in checks_json.lower() or "failure" in checks_json.lower():
-                        checks_state = "FAILING"
-                    elif "pending" in checks_json.lower():
-                        checks_state = "PENDING"
-                    elif "no checks" in checks_json.lower():
-                        checks_state = "NONE"
-                    else:
-                        checks_state = "PENDING/UNKNOWN"
+            for pr in prs:
+                head_sha = pr.head.sha
+                combined_status = repo.get_commit(head_sha).get_combined_status().state.upper()
+
+                checks_state = "PENDING/UNKNOWN"
+                if combined_status == "SUCCESS":
+                    checks_state = "SUCCESS"
+                elif combined_status in ["FAILURE", "ERROR"]:
+                    checks_state = "FAILING"
+                elif combined_status == "PENDING":
+                    checks_state = "PENDING"
 
                 pr_statuses.append(
                     PRStatus(
-                        repo=repo_name,
-                        number=pr["number"],
-                        title=pr["title"],
-                        author=pr["author"]["login"] if isinstance(pr["author"], dict) else pr["author"],
-                        mergeable=pr["mergeable"],
+                        repo=repo.name,
+                        number=pr.number,
+                        title=pr.title,
+                        author=pr.user.login,
+                        mergeable="MERGEABLE" if pr.mergeable else "CONFLICTING",
                         checks_status=checks_state,
-                        url=pr["url"],
+                        url=pr.html_url,
                     )
                 )
             return pr_statuses
         except Exception as e:
-            logger.error(f"Failed to parse PR data for {repo_name}: {e}")
+            logger.error(f"Failed to scan {repo_full_name}: {e}")
             return []
 
     def scan_all(self) -> list[PRStatus]:
         all_prs = []
-        for repo in MANAGED_REPOS:
-            logger.info(f"Scanning {repo}...")
-            all_prs.extend(self.get_open_prs(repo))
+        for repo_name in MANAGED_REPOS:
+            logger.info(f"Scanning {repo_name}...")
+            all_prs.extend(self.get_open_prs(repo_name))
         return all_prs
 
     def generate_report(self, prs: list[PRStatus]) -> str:
@@ -150,11 +97,11 @@ class PRMonitor:
 
 
 def main() -> None:
-    monitor = PRMonitor(BASE_DIR)
+    token = os.environ.get("GH_TOKEN")
+    monitor = PRMonitor(token)
     prs = monitor.scan_all()
     report = monitor.generate_report(prs)
 
-    # Save to a file for the weekly report
     with open("PR_REPORT.md", "w") as f:
         f.write(report)
 
