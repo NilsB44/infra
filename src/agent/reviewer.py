@@ -13,7 +13,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 
 
 class PRReviewer:
-    def __init__(self):
+    def __init__(self) -> None:
         if not API_KEY:
             logger.error("⚠️ GEMINI_API_KEY not found.")
             self.client = None
@@ -31,12 +31,12 @@ class PRReviewer:
                 text=True,
                 check=True,
             )
-            return result.stdout.strip()
+            return str(result.stdout.strip())
         except Exception as e:
             logger.error(f"Failed to get PR diff: {e}")
             return None
 
-    def post_review_comment(self, comment: str):
+    def post_review_comment(self, comment: str) -> None:
         if not GITHUB_TOKEN:
             logger.warning("⚠️ GITHUB_TOKEN not found. Cannot post comment.")
             print(comment)
@@ -71,11 +71,11 @@ class PRReviewer:
 
         try:
             response = self.client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
-            return response.text
+            return str(response.text or "AI Analysis failed: Empty response.")
         except Exception as e:
             return f"AI Analysis failed: {e}"
 
-    def run(self):
+    def run(self) -> None:
         logger.info("🔍 Fetching PR diff...")
         diff = self.get_pr_diff()
 
@@ -90,7 +90,7 @@ class PRReviewer:
         self.post_review_comment(f"## 🤖 AI Code Review\n\n{review}")
 
 
-def main():
+def main() -> None:
     reviewer = PRReviewer()
     reviewer.run()
 

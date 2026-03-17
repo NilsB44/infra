@@ -11,7 +11,7 @@ NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}"
 
 
 class Notifier:
-    def send_notification(self, title: str, message: str, priority: str = "default"):
+    def send_notification(self, title: str, message: str, priority: str = "default") -> None:
         """
         Sends a notification via ntfy.sh
         """
@@ -27,7 +27,7 @@ class Notifier:
             logger.error(f"❌ Failed to send notification: {e}")
 
 
-def main():
+def main() -> None:
     # This can be used as a standalone test
     notifier = Notifier()
     notifier.send_notification("Maintenance Test", "This is a test notification from the Infra Maintenance bot.")

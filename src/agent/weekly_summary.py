@@ -1,8 +1,9 @@
 import json
 import logging
 import os
+from typing import Any, cast
 
-from notifier import Notifier
+from src.agent.notifier import Notifier
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -13,17 +14,17 @@ TASKS_FILE = "tasks_queue.json"
 
 
 class WeeklySummarizer:
-    def load_data(self, file_path):
+    def load_data(self, file_path: str) -> list[dict[str, Any]]:
         if not os.path.exists(file_path):
             return []
         try:
             with open(file_path) as f:
-                return json.load(f)
+                return cast(list[dict[str, Any]], json.load(f))
         except Exception as e:
             logger.error(f"Failed to load {file_path}: {e}")
             return []
 
-    def generate_summary(self):
+    def generate_summary(self) -> str:
         merged_prs = self.load_data(MERGED_FILE)
         new_tasks = self.load_data(TASKS_FILE)
 
@@ -47,13 +48,17 @@ class WeeklySummarizer:
 
         return summary
 
-    def run(self):
+    def run(self) -> None:
         summary = self.generate_summary()
         logger.info("Sending weekly notification...")
         notifier = Notifier()
         notifier.send_notification("Weekly Infra Overhaul", summary)
 
 
-if __name__ == "__main__":
+def main() -> None:
     summarizer = WeeklySummarizer()
     summarizer.run()
+
+
+if __name__ == "__main__":
+    main()

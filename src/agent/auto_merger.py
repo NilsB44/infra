@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import subprocess
+from typing import Any
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -22,9 +23,9 @@ BASE_DIR = "/home/scila-nils/Documents/personal-repos"
 
 
 class AutoMerger:
-    def __init__(self, repos_dir: str):
+    def __init__(self, repos_dir: str) -> None:
         self.repos_dir = repos_dir
-        self.merged_prs = []
+        self.merged_prs: list[dict[str, Any]] = []
 
     def run_gh_command(self, repo_path: str, args: list[str], check: bool = True) -> str:
         try:
@@ -35,17 +36,17 @@ class AutoMerger:
                 text=True,
                 check=check,
             )
-            return result.stdout.strip()
+            return str(result.stdout.strip())
         except subprocess.CalledProcessError as e:
             if not check:
-                return e.stdout.strip() + "\n" + e.stderr.strip()
+                return str(e.stdout.strip() + "\n" + e.stderr.strip())
             logger.error(f"Error running gh command in {repo_path}: {e.stderr}")
             return ""
         except Exception as e:
             logger.error(f"Unexpected error running gh command: {e}")
             return ""
 
-    def process_repo(self, repo_name: str):
+    def process_repo(self, repo_name: str) -> None:
         repo_path = os.path.join(self.repos_dir, repo_name)
         if not os.path.exists(os.path.join(repo_path, ".git")):
             return
@@ -114,7 +115,7 @@ class AutoMerger:
         except Exception as e:
             logger.error(f"Failed to parse PR list for {repo_name}: {e}")
 
-    def run(self):
+    def run(self) -> None:
         for repo in MANAGED_REPOS:
             self.process_repo(repo)
 
@@ -124,7 +125,7 @@ class AutoMerger:
         logger.info(f"✅ Saved info for {len(self.merged_prs)} merged PRs to MERGED_REPORT.json")
 
 
-def main():
+def main() -> None:
     merger = AutoMerger(BASE_DIR)
     merger.run()
 

@@ -46,11 +46,11 @@ class PRMonitor:
                 text=True,
                 check=check,
             )
-            return result.stdout.strip()
+            return str(result.stdout.strip())
         except subprocess.CalledProcessError as e:
             if not check:
                 # If we don't want to check, return stdout even if exit code is non-zero
-                return e.stdout.strip() + "\n" + e.stderr.strip()
+                return str(e.stdout.strip() + "\n" + e.stderr.strip())
             logger.error(f"Error running gh command in {repo_path}: {e.stderr}")
             return ""
         except Exception as e:
