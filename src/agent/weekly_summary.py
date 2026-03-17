@@ -1,6 +1,7 @@
 import json
-import os
 import logging
+import os
+
 from notifier import Notifier
 
 # Configure logging
@@ -9,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 MERGED_FILE = "MERGED_REPORT.json"
 TASKS_FILE = "tasks_queue.json"
+
 
 class WeeklySummarizer:
     def load_data(self, file_path):
@@ -26,7 +28,7 @@ class WeeklySummarizer:
         new_tasks = self.load_data(TASKS_FILE)
 
         summary = "🗓 Weekly Maintenance Summary\n\n"
-        
+
         if merged_prs:
             summary += f"✅ Merged {len(merged_prs)} Dependabot PRs:\n"
             for pr in merged_prs:
@@ -50,6 +52,7 @@ class WeeklySummarizer:
         logger.info("Sending weekly notification...")
         notifier = Notifier()
         notifier.send_notification("Weekly Infra Overhaul", summary)
+
 
 if __name__ == "__main__":
     summarizer = WeeklySummarizer()
