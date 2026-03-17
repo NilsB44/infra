@@ -1,7 +1,40 @@
-name: Reusable
-on: workflow_call
+name: AI Code Reviewer
+
+on:
+  workflow_call:
+    secrets:
+      GEMINI_API_KEY:
+        required: true
+
 jobs:
   review:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
-      - run: echo "Passing"
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Run Reviewer
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Use the orchestrator's logic or a dedicated reviewer script
+          # For now, let's assume we have or will have a src/agent/reviewer.py
+          if [ -f "src/agent/reviewer.py" ]; then
+            uv run python src/agent/reviewer.py
+          else
+            echo "Reviewer script not found, falling back to basic check."
+            uv run ruff check .
+          fi
