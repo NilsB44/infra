@@ -1,5 +1,10 @@
 name: Review
 on: [pull_request]
+
 jobs:
   call-review:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: ./.github/workflows/reviewer.yml
+    secrets: inherit
