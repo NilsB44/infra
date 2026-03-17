@@ -78,8 +78,10 @@ class PRMonitor:
             pr_statuses = []
             for pr in prs_data:
                 # Use 'gh pr checks' with JSON for reliable parsing
-                checks_json = self.run_gh_command(repo_path, ["pr", "checks", str(pr["number"]), "--json", "state"], check=False)
-                
+                checks_json = self.run_gh_command(
+                    repo_path, ["pr", "checks", str(pr["number"]), "--json", "state"], check=False
+                )
+
                 checks_state = "SUCCESS"
                 try:
                     checks_data = json.loads(checks_json)
@@ -104,7 +106,7 @@ class PRMonitor:
                         checks_state = "NONE"
                     else:
                         checks_state = "PENDING/UNKNOWN"
-                
+
                 pr_statuses.append(
                     PRStatus(
                         repo=repo_name,
@@ -148,11 +150,11 @@ def main() -> None:
     monitor = PRMonitor(BASE_DIR)
     prs = monitor.scan_all()
     report = monitor.generate_report(prs)
-    
+
     # Save to a file for the weekly report
     with open("PR_REPORT.md", "w") as f:
         f.write(report)
-    
+
     logger.info(f"✅ Generated report for {len(prs)} PRs in PR_REPORT.md")
 
 

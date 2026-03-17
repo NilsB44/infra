@@ -50,9 +50,9 @@ class AutoMerger:
             return
 
         logger.info(f"Checking for mergeable Dependabot PRs in {repo_name}...")
-        
+
         # Get Dependabot PRs
-        # Note: Dependabot's author login is usually 'dependabot[bot]' or similar, 
+        # Note: Dependabot's author login is usually 'dependabot[bot]' or similar,
         # but 'app/dependabot' in 'gh' output usually translates to author 'dependabot'
         pr_list_json = self.run_gh_command(
             repo_path,
@@ -75,43 +75,40 @@ class AutoMerger:
             for pr in prs:
                 pr_num = pr["number"]
                 title = pr["title"]
-                
+
                 if pr["mergeable"] != "MERGEABLE":
                     logger.info(f"PR #{pr_num} ('{title}') is not mergeable. Skipping.")
                     continue
 
                 # Check if all CI checks passed
                 checks_json = self.run_gh_command(
-                    repo_path, 
-                    ["pr", "checks", str(pr_num), "--json", "state"], 
-                    check=False
+                    repo_path, ["pr", "checks", str(pr_num), "--json", "state"], check=False
                 )
-                
+
                 try:
                     checks_data = json.loads(checks_json)
                     if not checks_data:
                         logger.info(f"PR #{pr_num} has no checks. Skipping.")
                         continue
-                    
+
                     all_passed = True
                     for check in checks_data:
                         if check.get("state") != "SUCCESS":
                             all_passed = False
                             break
-                    
+
                     if all_passed:
                         logger.info(f"🚀 PR #{pr_num} ('{title}') is GREEN and MERGEABLE. Merging...")
                         merge_result = self.run_gh_command(
-                            repo_path,
-                            ["pr", "merge", str(pr_num), "--merge", "--delete-branch"]
+                            repo_path, ["pr", "merge", str(pr_num), "--merge", "--delete-branch"]
                         )
                         logger.info(f"✅ Merged PR #{pr_num}: {merge_result}")
                     else:
                         logger.info(f"PR #{pr_num} ('{title}') has failing or pending checks. Skipping.")
-                
+
                 except Exception as e:
                     logger.error(f"Failed to check/merge PR #{pr_num} in {repo_name}: {e}")
-                    
+
         except Exception as e:
             logger.error(f"Failed to parse PR list for {repo_name}: {e}")
 
