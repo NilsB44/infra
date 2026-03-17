@@ -29,30 +29,30 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: 📡 Run Radar (Fetch Trending)
-        run: uv run python src/radar/fetch_trending.py
+        run: PYTHONPATH=. uv run python src/radar/fetch_trending.py
 
       - name: 🔍 Scan Open PRs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: uv run python src/agent/pr_monitor.py
+        run: PYTHONPATH=. uv run python src/agent/pr_monitor.py
 
       - name: 🤖 Auto-Merge Dependabot PRs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: uv run python src/agent/auto_merger.py
+        run: PYTHONPATH=. uv run python src/agent/auto_merger.py
 
       - name: 🧠 Run Analyst & Planner
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: uv run python src/agent/orchestrator.py
+        run: PYTHONPATH=. uv run python src/agent/orchestrator.py
 
       - name: 🤖 Execute (Dry Run / Proposal)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: uv run python src/agent/executor.py
+        run: PYTHONPATH=. uv run python src/agent/executor.py
 
       - name: 📢 Send Weekly Notification
-        run: uv run python src/agent/weekly_summary.py
+        run: PYTHONPATH=. uv run python src/agent/weekly_summary.py
 
       - name: Commit Findings
         run: |

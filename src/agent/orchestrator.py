@@ -101,7 +101,7 @@ class Orchestrator:
         Return a JSON object with a list of 'candidates' matching the CandidateUpgrade schema.
         """
 
-        for model in ["gemini-2.0-flash", "gemini-1.5-flash"]:
+        for model in ["gemini-2.0-flash", "gemini-1.5-flash-002"]:
             try:
                 upgrades = self._call_gemini(model, prompt)
                 if upgrades:
