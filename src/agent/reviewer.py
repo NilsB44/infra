@@ -1,8 +1,8 @@
+import logging
 import os
 import subprocess
-import logging
+
 from google import genai
-from typing import Optional
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -20,7 +20,7 @@ class PRReviewer:
         else:
             self.client = genai.Client(api_key=API_KEY)
 
-    def get_pr_diff(self) -> Optional[str]:
+    def get_pr_diff(self) -> str | None:
         try:
             # We assume we are in a PR checkout context
             # Get the diff between the PR branch and the base branch (usually main)
@@ -58,7 +58,7 @@ class PRReviewer:
 
         prompt = f"""
         You are a Senior Software Engineer. Review the following Git diff for a Pull Request.
-        
+
         Provide:
         1. A summary of the changes.
         2. Potential bugs or performance issues.
@@ -68,12 +68,9 @@ class PRReviewer:
         DIFF:
         {diff[:15000]}  # Truncate if too long
         """
-        
+
         try:
-            response = self.client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=prompt
-            )
+            response = self.client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
             return response.text
         except Exception as e:
             return f"AI Analysis failed: {e}"
@@ -81,14 +78,14 @@ class PRReviewer:
     def run(self):
         logger.info("🔍 Fetching PR diff...")
         diff = self.get_pr_diff()
-        
+
         if not diff:
             logger.info("✨ No diff found or not in a PR context.")
             return
 
         logger.info("🧠 Analyzing with Gemini AI...")
         review = self.analyze_diff(diff)
-        
+
         logger.info("💬 Posting review comment...")
         self.post_review_comment(f"## 🤖 AI Code Review\n\n{review}")
 

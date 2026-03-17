@@ -3,7 +3,6 @@ import logging
 import os
 import subprocess
 from dataclasses import dataclass
-from typing import Any
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -141,7 +140,11 @@ class PRMonitor:
         for pr in prs:
             status_icon = "✅" if pr.checks_status == "SUCCESS" else "❌" if pr.checks_status == "FAILING" else "⏳"
             merge_icon = "✅" if pr.mergeable == "MERGEABLE" else "⚠️"
-            report += f"| {pr.repo} | #{pr.number} | {pr.title} | {pr.author} | {merge_icon} {pr.mergeable} | {status_icon} {pr.checks_status} | [Link]({pr.url}) |\n"
+            row = (
+                f"| {pr.repo} | #{pr.number} | {pr.title} | {pr.author} | "
+                f"{merge_icon} {pr.mergeable} | {status_icon} {pr.checks_status} | [Link]({pr.url}) |\n"
+            )
+            report += row
 
         return report
 
