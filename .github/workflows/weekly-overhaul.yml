@@ -51,6 +51,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run python src/agent/executor.py
 
+      - name: 📢 Send Weekly Notification
+        run: uv run python src/agent/weekly_summary.py
+
       - name: Commit Findings
         run: |
           git config --global user.name "Infra Bot"

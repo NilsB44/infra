@@ -24,6 +24,7 @@ BASE_DIR = "/home/scila-nils/Documents/personal-repos"
 class AutoMerger:
     def __init__(self, repos_dir: str):
         self.repos_dir = repos_dir
+        self.merged_prs = []
 
     def run_gh_command(self, repo_path: str, args: list[str], check: bool = True) -> str:
         try:
@@ -103,6 +104,12 @@ class AutoMerger:
                             repo_path, ["pr", "merge", str(pr_num), "--merge", "--delete-branch"]
                         )
                         logger.info(f"✅ Merged PR #{pr_num}: {merge_result}")
+                        self.merged_prs.append({
+                            "repo": repo_name,
+                            "number": pr_num,
+                            "title": title,
+                            "url": pr["url"]
+                        })
                     else:
                         logger.info(f"PR #{pr_num} ('{title}') has failing or pending checks. Skipping.")
 
@@ -115,6 +122,11 @@ class AutoMerger:
     def run(self):
         for repo in MANAGED_REPOS:
             self.process_repo(repo)
+        
+        # Save merged PRs for the notifier
+        with open("MERGED_REPORT.json", "w") as f:
+            json.dump(self.merged_prs, f, indent=2)
+        logger.info(f"✅ Saved info for {len(self.merged_prs)} merged PRs to MERGED_REPORT.json")
 
 
 def main():

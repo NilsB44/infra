@@ -1,0 +1,56 @@
+import json
+import os
+import logging
+from notifier import Notifier
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+MERGED_FILE = "MERGED_REPORT.json"
+TASKS_FILE = "tasks_queue.json"
+
+class WeeklySummarizer:
+    def load_data(self, file_path):
+        if not os.path.exists(file_path):
+            return []
+        try:
+            with open(file_path) as f:
+                return json.load(f)
+        except Exception as e:
+            logger.error(f"Failed to load {file_path}: {e}")
+            return []
+
+    def generate_summary(self):
+        merged_prs = self.load_data(MERGED_FILE)
+        new_tasks = self.load_data(TASKS_FILE)
+
+        summary = "🗓 Weekly Maintenance Summary\n\n"
+        
+        if merged_prs:
+            summary += f"✅ Merged {len(merged_prs)} Dependabot PRs:\n"
+            for pr in merged_prs:
+                summary += f"- {pr['repo']} #{pr['number']}: {pr['title']}\n"
+        else:
+            summary += "✅ No Dependabot PRs needed merging.\n"
+
+        summary += "\n"
+
+        if new_tasks:
+            summary += f"📋 Identified {len(new_tasks)} new maintenance tasks:\n"
+            for task in new_tasks:
+                summary += f"- [{task['project_name']}] {task['tool_name']}: {task['risk_level']} risk\n"
+        else:
+            summary += "📋 No new maintenance tasks identified.\n"
+
+        return summary
+
+    def run(self):
+        summary = self.generate_summary()
+        logger.info("Sending weekly notification...")
+        notifier = Notifier()
+        notifier.send_notification("Weekly Infra Overhaul", summary)
+
+if __name__ == "__main__":
+    summarizer = WeeklySummarizer()
+    summarizer.run()
