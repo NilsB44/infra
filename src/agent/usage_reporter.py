@@ -1,7 +1,9 @@
+import base64
 import json
 import logging
 import os
-import base64
+from typing import Any
+
 from github import Auth, Github
 
 # Configure logging
@@ -12,6 +14,7 @@ REPOS_TO_SCAN = [
     "NilsB44/WebScraper",
 ]
 
+
 class UsageReporter:
     def __init__(self, token: str | None) -> None:
         if token:
@@ -19,13 +22,13 @@ class UsageReporter:
             self.gh = Github(auth=auth)
         else:
             self.gh = Github()
-        self.usage_data = {}
+        self.usage_data: dict[str, Any] = {}
 
     def fetch_usage(self, repo_full_name: str) -> None:
         try:
             repo = self.gh.get_repo(repo_full_name)
             logger.info(f"📊 Fetching LLM usage for {repo_full_name}...")
-            
+
             try:
                 content = repo.get_contents("data/usage_metrics.json", ref="main")
                 if isinstance(content, list):
@@ -46,16 +49,18 @@ class UsageReporter:
     def run(self) -> None:
         for repo_name in REPOS_TO_SCAN:
             self.fetch_usage(repo_name)
-        
+
         # Save report
         with open("USAGE_REPORT.json", "w") as f:
             json.dump(self.usage_data, f, indent=2)
-        logger.info(f"✅ Saved usage report to USAGE_REPORT.json.")
+        logger.info("✅ Saved usage report to USAGE_REPORT.json.")
+
 
 def main() -> None:
     token = os.environ.get("GH_TOKEN")
     reporter = UsageReporter(token)
     reporter.run()
+
 
 if __name__ == "__main__":
     main()

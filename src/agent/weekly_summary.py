@@ -49,7 +49,7 @@ class WeeklySummarizer:
             summary += "📊 LLM Usage (Past 7 Days):\n"
             for repo_name, metrics in usage_data.items():
                 total_calls = 0
-                for date, day_metrics in metrics.items():
+                for _date, day_metrics in metrics.items():
                     # metrics is a dict where keys are dates and values are lists of model metrics
                     for model_metric in day_metrics:
                         total_calls += model_metric.get("calls", 0)
@@ -59,13 +59,13 @@ class WeeklySummarizer:
         if merged_prs:
             summary += f"🚀 Merged {len(merged_prs)} Dependabot PRs:\n"
             # Group by repo
-            repos = {}
+            repos: dict[str, list[dict[str, Any]]] = {}
             for pr in merged_prs:
-                repo_name = pr['repo']
+                repo_name = pr["repo"]
                 if repo_name not in repos:
                     repos[repo_name] = []
                 repos[repo_name].append(pr)
-            
+
             for repo_name, prs in repos.items():
                 summary += f"\n📦 {repo_name}:\n"
                 for pr in prs:
@@ -78,13 +78,13 @@ class WeeklySummarizer:
         if security_alerts:
             summary += f"🛡️ Security Alerts Found ({len(security_alerts)}):\n"
             # Group by repo
-            sec_repos = {}
+            sec_repos: dict[str, list[dict[str, Any]]] = {}
             for alert in security_alerts:
-                repo_name = alert['repo']
+                repo_name = alert["repo"]
                 if repo_name not in sec_repos:
                     sec_repos[repo_name] = []
                 sec_repos[repo_name].append(alert)
-            
+
             for repo_name, alerts in sec_repos.items():
                 summary += f"- {repo_name}: {len(alerts)} alerts\n"
         else:
