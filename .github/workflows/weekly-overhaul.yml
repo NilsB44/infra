@@ -46,6 +46,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: PYTHONPATH=. uv run python src/agent/security_fixer.py
 
+      - name: 📊 Fetch LLM Usage
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: PYTHONPATH=. uv run python src/agent/usage_reporter.py
+
       - name: 🧠 Run Analyst & Planner
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -70,7 +75,7 @@ jobs:
           git checkout -b "$BRANCH_NAME"
           
           FILES_ADDED=false
-          for f in TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md SECURITY_REPORT.json MERGED_REPORT.json; do
+          for f in TRENDING.md trending_tech.json tasks_queue.json PR_REPORT.md SECURITY_REPORT.json USAGE_REPORT.json MERGED_REPORT.json; do
             if [ -f "$f" ]; then
               git add "$f"
               FILES_ADDED=true
