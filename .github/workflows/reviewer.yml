@@ -25,20 +25,22 @@ jobs:
       - name: Set up Python
         run: uv python install
 
+      - name: Install dependencies
+        run: |
+          if [ -f "pyproject.toml" ]; then
+            uv sync
+          fi
+
       - name: Run Reviewer
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Try to find the reviewer script in the current repo (if it's infra)
-          # or we might need to fetch it from the infra repo.
-          # Since this is a reusable workflow, 'src/agent/reviewer.py' refers to the caller repo.
-          # We should probably use a separate action or fetch the script.
-          
           if [ -f "src/agent/reviewer.py" ]; then
             uv run python src/agent/reviewer.py
           else
             echo "Reviewer script not found in caller repo. Fetching from infra..."
             curl -fsSL https://raw.githubusercontent.com/NilsB44/infra/main/src/agent/reviewer.py -o reviewer.py
-            uv run python reviewer.py
+            # Ensure google-genai is available even if not in pyproject.toml
+            uv run --with google-genai python reviewer.py
           fi
