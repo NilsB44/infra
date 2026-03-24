@@ -39,12 +39,12 @@ class WeeklySummarizer:
         new_tasks = self.load_data(TASKS_FILE)
         security_alerts = self.load_data("SECURITY_REPORT.json")
         usage_data = self.load_dict("USAGE_REPORT.json")
-        
+
         # Load Open PRs from pr_monitor (if we can find the data or just run it)
-        # Actually, let's assume pr_monitor.py was run and we have the PR_REPORT.md or we can just 
+        # Actually, let's assume pr_monitor.py was run and we have the PR_REPORT.md or we can just
         # count from the output if we want, but easier to use a shared data file if it existed.
         # Since pr_monitor only writes a MD, let's just use what's available.
-        
+
         if not merged_prs and not new_tasks and not security_alerts and not usage_data:
             return None
 
@@ -80,21 +80,21 @@ class WeeklySummarizer:
 
         # Add section for open PRs
         if os.path.exists("PR_REPORT.md"):
-             with open("PR_REPORT.md") as f:
-                 pr_content = f.read()
-                 # Extract dependabot count
-                 dep_count = pr_content.count("dependabot[bot]")
-                 summary += f"\n📂 Open Pull Requests ({dep_count} from Dependabot):\n"
-                 if dep_count > 0:
-                     # Simple list of repos with dependabot PRs
-                     summary += "Pending updates in: "
-                     dep_repos = []
-                     for line in pr_content.split("\n"):
-                         if "dependabot[bot]" in line:
-                             repo = line.split("|")[1].strip()
-                             if repo not in dep_repos:
-                                 dep_repos.append(repo)
-                     summary += ", ".join(dep_repos) + "\n"
+            with open("PR_REPORT.md") as f:
+                pr_content = f.read()
+                # Extract dependabot count
+                dep_count = pr_content.count("dependabot[bot]")
+                summary += f"\n📂 Open Pull Requests ({dep_count} from Dependabot):\n"
+                if dep_count > 0:
+                    # Simple list of repos with dependabot PRs
+                    summary += "Pending updates in: "
+                    dep_repos = []
+                    for line in pr_content.split("\n"):
+                        if "dependabot[bot]" in line:
+                            repo = line.split("|")[1].strip()
+                            if repo not in dep_repos:
+                                dep_repos.append(repo)
+                    summary += ", ".join(dep_repos) + "\n"
 
         summary += "\n"
 

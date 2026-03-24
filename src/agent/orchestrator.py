@@ -63,7 +63,7 @@ class Orchestrator:
             if response.usage_metadata:
                 tokens_in = response.usage_metadata.prompt_token_count or 0
                 tokens_out = response.usage_metadata.candidates_token_count or 0
-            
+
             UsageTracker.log_use(model=model, tokens_in=tokens_in, tokens_out=tokens_out)
 
             if response.parsed:
