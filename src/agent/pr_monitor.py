@@ -10,10 +10,10 @@ logger = logging.getLogger(__name__)
 
 MANAGED_REPOS = [
     "NilsB44/Buss",
-    "NilsB44/CarbonCalculator",
+    "NilsB44/CarbonFootPrint",
     "NilsB44/Eco-audit-web",
     "NilsB44/infra",
-    "NilsB44/ai-coding-agent",
+    "NilsB44/RAG",
     "NilsB44/WebScraper",
 ]
 

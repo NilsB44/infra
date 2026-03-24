@@ -12,6 +12,11 @@ logger = logging.getLogger(__name__)
 
 REPOS_TO_SCAN = [
     "NilsB44/WebScraper",
+    "NilsB44/infra",
+    "NilsB44/Eco-audit-web",
+    "NilsB44/CarbonCalculator",
+    "NilsB44/ai-coding-agent",
+    "NilsB44/Buss",
 ]
 
 

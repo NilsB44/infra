@@ -7,6 +7,8 @@ from google import genai
 from pydantic import BaseModel, Field
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
+from src.utils.usage_tracker import UsageTracker
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -48,15 +50,28 @@ class Orchestrator:
         if not self.client:
             return []
 
-        response = self.client.models.generate_content(
-            model=model,
-            contents=prompt,
-            config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
-        )
+        try:
+            response = self.client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config={"response_mime_type": "application/json", "response_schema": list[CandidateUpgrade]},
+            )
 
-        if response.parsed:
-            return cast(list[CandidateUpgrade], response.parsed)
-        return []
+            # Extract token usage
+            tokens_in = 0
+            tokens_out = 0
+            if response.usage_metadata:
+                tokens_in = response.usage_metadata.prompt_token_count or 0
+                tokens_out = response.usage_metadata.candidates_token_count or 0
+
+            UsageTracker.log_use(model=model, tokens_in=tokens_in, tokens_out=tokens_out)
+
+            if response.parsed:
+                return cast(list[CandidateUpgrade], response.parsed)
+            return []
+        except Exception as e:
+            UsageTracker.log_use(model=model, calls=1)
+            raise e
 
     def analyze_relevance(
         self, trending_repos: list[dict[str, Any]], target_projects: list[str]

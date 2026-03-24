@@ -21,10 +21,26 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev
 
-      - name: Run Ruff Check
+      - name: Run Ruff Check & Fix
+        run: |
+          uv run ruff check --fix .
+          uv run ruff format .
+
+      - name: Commit and Push automated fixes
+        if: github.event_name == 'pull_request'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: automated ruff fixes and formatting"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
+
+      - name: Run Ruff Check (Verify)
         run: uv run ruff check .
 
-      - name: Run Ruff Format Check
+      - name: Run Ruff Format Check (Verify)
         run: uv run ruff format --check .
 
       - name: Run Mypy
