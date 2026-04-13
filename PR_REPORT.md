@@ -7,4 +7,4 @@
 | Eco-audit-web | #20 | chore(deps-dev): bump eslint-config-next from 16.1.6 to 16.2.0 | dependabot[bot] | ✅ MERGEABLE | ⏳ PENDING | [Link](https://github.com/NilsB44/Eco-audit-web/pull/20) |
 | Eco-audit-web | #19 | chore(deps-dev): bump jsdom from 28.1.0 to 29.0.1 | dependabot[bot] | ✅ MERGEABLE | ⏳ PENDING | [Link](https://github.com/NilsB44/Eco-audit-web/pull/19) |
 | Eco-audit-web | #15 | chore(deps-dev): bump eslint from 9.39.2 to 10.0.3 | dependabot[bot] | ✅ MERGEABLE | ⏳ PENDING | [Link](https://github.com/NilsB44/Eco-audit-web/pull/15) |
-| WebScraper | #32 | fix: Scraper reliability, Broaden XTZ search, and Refactor logic | NilsB44 | ✅ MERGEABLE | ⏳ PENDING | [Link](https://github.com/NilsB44/WebScraper/pull/32) |
+| WebScraper | #32 | fix: Scraper reliability, Broaden XTZ search, and Refactor logic | NilsB44 | ⚠️ CONFLICTING | ⏳ PENDING | [Link](https://github.com/NilsB44/WebScraper/pull/32) |
