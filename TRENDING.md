@@ -1,24 +1,25 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-05-18 06:05:37
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Shell | 89747 | Skills for Real Engineers. Straight from my .claude directory. |
+| [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | Python | 25301 | Use claude-code for free in the terminal, VSCode extension or discord like OpenClaw (voice supported) |
+| [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | Unknown | 134586 | A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls. |
+| [Fincept-Corporation/FinceptTerminal](https://github.com/Fincept-Corporation/FinceptTerminal) | Python | 21468 | FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment. |
+| [AIDC-AI/Pixelle-Video](https://github.com/AIDC-AI/Pixelle-Video) | Python | 17851 | 🚀 AI 全自动短视频引擎 - AI Fully Automated Short Video Engine |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | TypeScript | 19105 | Write HTML. Render video. Built for agents. |
+| [ComposioHQ/awesome-codex-skills](https://github.com/ComposioHQ/awesome-codex-skills) | Python | 10332 | A curated list of practical Codex skills for automating workflows across the Codex CLI and API. |
+| [anthropics/financial-services](https://github.com/anthropics/financial-services) | Python | 24624 | No description. |
+| [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) | Python | 75183 | ALL IN ONE Hacking Tool For Hackers |
+| [soxoj/maigret](https://github.com/soxoj/maigret) | Python | 29225 | 🕵️‍♂️ Collect a dossier on a person by username from 3000+ sites |
+| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | Shell | 43013 | Production-grade engineering skills for AI coding agents. |
+| [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents) | Python | 76638 | TradingAgents: Multi-Agents LLM Financial Trading Framework |
+| [CloakHQ/CloakBrowser](https://github.com/CloakHQ/CloakBrowser) | Python | 14100 | Stealth Chromium that passes every bot detection test. Drop-in Playwright replacement with source-level fingerprint patches. 30/30 tests passed. |
+| [rohitg00/agentmemory](https://github.com/rohitg00/agentmemory) | TypeScript | 11609 | #1 Persistent memory for AI coding agents based on real-world benchmarks |
+| [Anil-matcha/Open-Generative-AI](https://github.com/Anil-matcha/Open-Generative-AI) | JavaScript | 15352 | Open-source alternative to AI video platforms — Free AI image & video generation studio with 200+ models (Flux, Midjourney, Kling, Sora, Veo). No content filters. Self-hosted, MIT licensed. |
+| [zilliztech/claude-context](https://github.com/zilliztech/claude-context) | TypeScript | 11332 | Code search MCP for Claude Code. Make entire codebase the context for any coding agent. |
+| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | Python | 155210 | The agent that grows with you |
+| [decolua/9router](https://github.com/decolua/9router) | JavaScript | 11773 | Unlimited FREE AI coding. Connect Claude Code, Codex, Cursor, Cline, Copilot, Antigravity to FREE Claude/GPT/Gemini via 40+ providers. Auto-fallback, RTK -40% tokens, never hit limits. |
+| [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | TypeScript | 52475 | 🌊 The leading agent orchestration platform for Claude. Deploy intelligent multi-agent swarms, coordinate autonomous workflows, and build conversational AI systems. Features enterprise-grade architecture, self-learning swarm intelligence, RAG integration, and native Claude Code / Codex Integration |
