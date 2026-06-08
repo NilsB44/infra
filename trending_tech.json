@@ -1,146 +1,154 @@
 [
   {
-    "name": "openclaw/openclaw",
-    "url": "https://github.com/openclaw/openclaw",
-    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
+    "name": "colbymchenry/codegraph",
+    "url": "https://github.com/colbymchenry/codegraph",
+    "description": "Pre-indexed code knowledge graph for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
     "language": "TypeScript",
-    "stars": "220109",
-    "fetched_at": "2026-02-23T13:42:00.256004"
+    "stars": "44146",
+    "fetched_at": "2026-06-08T06:28:50.624417"
   },
   {
-    "name": "badlogic/pi-mono",
-    "url": "https://github.com/badlogic/pi-mono",
-    "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
-    "language": "TypeScript",
-    "stars": "14897",
-    "fetched_at": "2026-02-23T13:42:00.256317"
-  },
-  {
-    "name": "KeygraphHQ/shannon",
-    "url": "https://github.com/KeygraphHQ/shannon",
-    "description": "Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark.",
-    "language": "TypeScript",
-    "stars": "24522",
-    "fetched_at": "2026-02-23T13:42:00.256536"
-  },
-  {
-    "name": "tobi/qmd",
-    "url": "https://github.com/tobi/qmd",
-    "description": "mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local",
-    "language": "TypeScript",
-    "stars": "10120",
-    "fetched_at": "2026-02-23T13:42:00.256757"
-  },
-  {
-    "name": "openai/skills",
-    "url": "https://github.com/openai/skills",
-    "description": "Skills Catalog for Codex",
+    "name": "chopratejas/headroom",
+    "url": "https://github.com/chopratejas/headroom",
+    "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 60-95% fewer tokens, same answers. Library, proxy, MCP server.",
     "language": "Python",
-    "stars": "9412",
-    "fetched_at": "2026-02-23T13:42:00.256973"
+    "stars": "17293",
+    "fetched_at": "2026-06-08T06:28:50.624904"
   },
   {
-    "name": "asgeirtj/system_prompts_leaks",
-    "url": "https://github.com/asgeirtj/system_prompts_leaks",
-    "description": "Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini",
-    "language": "HTML",
-    "stars": "32688",
-    "fetched_at": "2026-02-23T13:42:00.257270"
-  },
-  {
-    "name": "steipete/gogcli",
-    "url": "https://github.com/steipete/gogcli",
-    "description": "Google Suite CLI: Gmail, GCal, GDrive, GContacts.",
-    "language": "Go",
-    "stars": "4718",
-    "fetched_at": "2026-02-23T13:42:00.257572"
-  },
-  {
-    "name": "thedotmack/claude-mem",
-    "url": "https://github.com/thedotmack/claude-mem",
-    "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
-    "language": "TypeScript",
-    "stars": "30355",
-    "fetched_at": "2026-02-23T13:42:00.257875"
-  },
-  {
-    "name": "p-e-w/heretic",
-    "url": "https://github.com/p-e-w/heretic",
-    "description": "Fully automatic censorship removal for language models",
+    "name": "CloakHQ/CloakBrowser",
+    "url": "https://github.com/CloakHQ/CloakBrowser",
+    "description": "Stealth Chromium that passes every bot detection test. Drop-in Playwright replacement with source-level fingerprint patches. 30/30 tests passed.",
     "language": "Python",
-    "stars": "9263",
-    "fetched_at": "2026-02-23T13:42:00.258095"
+    "stars": "24757",
+    "fetched_at": "2026-06-08T06:28:50.625284"
   },
   {
-    "name": "obra/superpowers",
-    "url": "https://github.com/obra/superpowers",
-    "description": "An agentic skills framework & software development methodology that works.",
+    "name": "Lum1104/Understand-Anything",
+    "url": "https://github.com/Lum1104/Understand-Anything",
+    "description": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+    "language": "TypeScript",
+    "stars": "54646",
+    "fetched_at": "2026-06-08T06:28:50.625630"
+  },
+  {
+    "name": "rohitg00/agentmemory",
+    "url": "https://github.com/rohitg00/agentmemory",
+    "description": "#1 Persistent memory for AI coding agents based on real-world benchmarks",
+    "language": "TypeScript",
+    "stars": "21786",
+    "fetched_at": "2026-06-08T06:28:50.626091"
+  },
+  {
+    "name": "harry0703/MoneyPrinterTurbo",
+    "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+    "description": "利用AI大模型，一键生成高清短视频 Generate short videos with one click using AI LLM.",
+    "language": "Python",
+    "stars": "81466",
+    "fetched_at": "2026-06-08T06:28:50.626434"
+  },
+  {
+    "name": "fathah/hermes-desktop",
+    "url": "https://github.com/fathah/hermes-desktop",
+    "description": "Desktop Companion for Hermes Agent",
+    "language": "TypeScript",
+    "stars": "11056",
+    "fetched_at": "2026-06-08T06:28:50.626782"
+  },
+  {
+    "name": "Imbad0202/academic-research-skills",
+    "url": "https://github.com/Imbad0202/academic-research-skills",
+    "description": "Academic Research Skills for Claude Code: research → write → review → revise → finalize",
+    "language": "Python",
+    "stars": "28672",
+    "fetched_at": "2026-06-08T06:28:50.627149"
+  },
+  {
+    "name": "rohitg00/ai-engineering-from-scratch",
+    "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
+    "description": "Learn it. Build it. Ship it for others.",
+    "language": "Python",
+    "stars": "30002",
+    "fetched_at": "2026-06-08T06:28:50.627588"
+  },
+  {
+    "name": "ruvnet/RuView",
+    "url": "https://github.com/ruvnet/RuView",
+    "description": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single pixel of video.",
+    "language": "Rust",
+    "stars": "71765",
+    "fetched_at": "2026-06-08T06:28:50.627941"
+  },
+  {
+    "name": "yikart/AiToEarn",
+    "url": "https://github.com/yikart/AiToEarn",
+    "description": "Let's use AI to Earn!",
+    "language": "TypeScript",
+    "stars": "19015",
+    "fetched_at": "2026-06-08T06:28:50.628284"
+  },
+  {
+    "name": "mattpocock/skills",
+    "url": "https://github.com/mattpocock/skills",
+    "description": "Skills for Real Engineers. Straight from my .claude directory.",
     "language": "Shell",
-    "stars": "58789",
-    "fetched_at": "2026-02-23T13:42:00.258375"
+    "stars": "120748",
+    "fetched_at": "2026-06-08T06:28:50.628722"
   },
   {
-    "name": "ThePrimeagen/99",
-    "url": "https://github.com/ThePrimeagen/99",
-    "description": "Neovim AI agent done right",
-    "language": "Lua",
-    "stars": "4017",
-    "fetched_at": "2026-02-23T13:42:00.258669"
-  },
-  {
-    "name": "NevaMind-AI/memU",
-    "url": "https://github.com/NevaMind-AI/memU",
-    "description": "Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot).",
-    "language": "Python",
-    "stars": "9889",
-    "fetched_at": "2026-02-23T13:42:00.258923"
-  },
-  {
-    "name": "modelcontextprotocol/ext-apps",
-    "url": "https://github.com/modelcontextprotocol/ext-apps",
-    "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
+    "name": "can1357/oh-my-pi",
+    "url": "https://github.com/can1357/oh-my-pi",
+    "description": "⌥ AI Coding agent for the terminal — hash-anchored edits, optimized tool harness, LSP, Python, browser, subagents, and more",
     "language": "TypeScript",
-    "stars": "1624",
-    "fetched_at": "2026-02-23T13:42:00.259141"
+    "stars": "11150",
+    "fetched_at": "2026-06-08T06:28:50.629079"
   },
   {
-    "name": "MoonshotAI/kimi-cli",
-    "url": "https://github.com/MoonshotAI/kimi-cli",
-    "description": "Kimi Code CLI is your next CLI agent.",
+    "name": "HKUDS/ViMax",
+    "url": "https://github.com/HKUDS/ViMax",
+    "description": "\"ViMax: Agentic Video Generation (Director, Screenwriter, Producer, and Video Generator All-in-One)\"",
     "language": "Python",
-    "stars": "6647",
-    "fetched_at": "2026-02-23T13:42:00.259362"
+    "stars": "9049",
+    "fetched_at": "2026-06-08T06:28:50.629414"
   },
   {
-    "name": "gsd-build/get-shit-done",
-    "url": "https://github.com/gsd-build/get-shit-done",
-    "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode.",
+    "name": "anthropics/financial-services",
+    "url": "https://github.com/anthropics/financial-services",
+    "description": "No description.",
+    "language": "Python",
+    "stars": "30432",
+    "fetched_at": "2026-06-08T06:28:50.629778"
+  },
+  {
+    "name": "millionco/react-doctor",
+    "url": "https://github.com/millionco/react-doctor",
+    "description": "Your agent writes bad React. This catches it",
+    "language": "TypeScript",
+    "stars": "12361",
+    "fetched_at": "2026-06-08T06:28:50.630133"
+  },
+  {
+    "name": "decolua/9router",
+    "url": "https://github.com/decolua/9router",
+    "description": "Unlimited FREE AI coding. Connect Claude Code, Codex, Cursor, Cline, Copilot, Antigravity to FREE Claude/GPT/Gemini via 40+ providers. Auto-fallback, RTK -40% tokens, never hit limits.",
     "language": "JavaScript",
-    "stars": "18164",
-    "fetched_at": "2026-02-23T13:42:00.259600"
+    "stars": "16846",
+    "fetched_at": "2026-06-08T06:28:50.630472"
   },
   {
-    "name": "VectifyAI/PageIndex",
-    "url": "https://github.com/VectifyAI/PageIndex",
-    "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+    "name": "microsoft/markitdown",
+    "url": "https://github.com/microsoft/markitdown",
+    "description": "Python tool for converting files and office documents to Markdown.",
     "language": "Python",
-    "stars": "16395",
-    "fetched_at": "2026-02-23T13:42:00.259834"
+    "stars": "147657",
+    "fetched_at": "2026-06-08T06:28:50.630821"
   },
   {
-    "name": "steipete/summarize",
-    "url": "https://github.com/steipete/summarize",
-    "description": "Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension.",
-    "language": "TypeScript",
-    "stars": "4200",
-    "fetched_at": "2026-02-23T13:42:00.260112"
-  },
-  {
-    "name": "virattt/dexter",
-    "url": "https://github.com/virattt/dexter",
-    "description": "An autonomous agent for deep financial research",
-    "language": "TypeScript",
-    "stars": "16036",
-    "fetched_at": "2026-02-23T13:42:00.260327"
+    "name": "nesquena/hermes-webui",
+    "url": "https://github.com/nesquena/hermes-webui",
+    "description": "Hermes WebUI: The best way to use Hermes Agent from the web or from your phone!",
+    "language": "Python",
+    "stars": "13901",
+    "fetched_at": "2026-06-08T06:28:50.631277"
   }
 ]

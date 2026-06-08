@@ -1,24 +1,25 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-06-08 06:28:50
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | TypeScript | 44146 | Pre-indexed code knowledge graph for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, and Hermes Agent — fewer tokens, fewer tool calls, 100% local |
+| [chopratejas/headroom](https://github.com/chopratejas/headroom) | Python | 17293 | Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 60-95% fewer tokens, same answers. Library, proxy, MCP server. |
+| [CloakHQ/CloakBrowser](https://github.com/CloakHQ/CloakBrowser) | Python | 24757 | Stealth Chromium that passes every bot detection test. Drop-in Playwright replacement with source-level fingerprint patches. 30/30 tests passed. |
+| [Lum1104/Understand-Anything](https://github.com/Lum1104/Understand-Anything) | TypeScript | 54646 | Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more. |
+| [rohitg00/agentmemory](https://github.com/rohitg00/agentmemory) | TypeScript | 21786 | #1 Persistent memory for AI coding agents based on real-world benchmarks |
+| [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) | Python | 81466 | 利用AI大模型，一键生成高清短视频 Generate short videos with one click using AI LLM. |
+| [fathah/hermes-desktop](https://github.com/fathah/hermes-desktop) | TypeScript | 11056 | Desktop Companion for Hermes Agent |
+| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | Python | 28672 | Academic Research Skills for Claude Code: research → write → review → revise → finalize |
+| [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | Python | 30002 | Learn it. Build it. Ship it for others. |
+| [ruvnet/RuView](https://github.com/ruvnet/RuView) | Rust | 71765 | π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single pixel of video. |
+| [yikart/AiToEarn](https://github.com/yikart/AiToEarn) | TypeScript | 19015 | Let's use AI to Earn! |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Shell | 120748 | Skills for Real Engineers. Straight from my .claude directory. |
+| [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi) | TypeScript | 11150 | ⌥ AI Coding agent for the terminal — hash-anchored edits, optimized tool harness, LSP, Python, browser, subagents, and more |
+| [HKUDS/ViMax](https://github.com/HKUDS/ViMax) | Python | 9049 | "ViMax: Agentic Video Generation (Director, Screenwriter, Producer, and Video Generator All-in-One)" |
+| [anthropics/financial-services](https://github.com/anthropics/financial-services) | Python | 30432 | No description. |
+| [millionco/react-doctor](https://github.com/millionco/react-doctor) | TypeScript | 12361 | Your agent writes bad React. This catches it |
+| [decolua/9router](https://github.com/decolua/9router) | JavaScript | 16846 | Unlimited FREE AI coding. Connect Claude Code, Codex, Cursor, Cline, Copilot, Antigravity to FREE Claude/GPT/Gemini via 40+ providers. Auto-fallback, RTK -40% tokens, never hit limits. |
+| [microsoft/markitdown](https://github.com/microsoft/markitdown) | Python | 147657 | Python tool for converting files and office documents to Markdown. |
+| [nesquena/hermes-webui](https://github.com/nesquena/hermes-webui) | Python | 13901 | Hermes WebUI: The best way to use Hermes Agent from the web or from your phone! |
