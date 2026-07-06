@@ -1,146 +1,162 @@
 [
   {
-    "name": "openclaw/openclaw",
-    "url": "https://github.com/openclaw/openclaw",
-    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
-    "language": "TypeScript",
-    "stars": "220109",
-    "fetched_at": "2026-02-23T13:42:00.256004"
+    "name": "apple/container",
+    "url": "https://github.com/apple/container",
+    "description": "A tool for creating and running Linux containers using lightweight virtual machines on a Mac. It is written in Swift, and optimized for Apple silicon.",
+    "language": "Swift",
+    "stars": "46671",
+    "fetched_at": "2026-07-06T06:19:49.108022"
   },
   {
-    "name": "badlogic/pi-mono",
-    "url": "https://github.com/badlogic/pi-mono",
-    "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
-    "language": "TypeScript",
-    "stars": "14897",
-    "fetched_at": "2026-02-23T13:42:00.256317"
+    "name": "DeusData/codebase-memory-mcp",
+    "url": "https://github.com/DeusData/codebase-memory-mcp",
+    "description": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
+    "language": "C",
+    "stars": "26905",
+    "fetched_at": "2026-07-06T06:19:49.108420"
   },
   {
-    "name": "KeygraphHQ/shannon",
-    "url": "https://github.com/KeygraphHQ/shannon",
-    "description": "Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark.",
-    "language": "TypeScript",
-    "stars": "24522",
-    "fetched_at": "2026-02-23T13:42:00.256536"
-  },
-  {
-    "name": "tobi/qmd",
-    "url": "https://github.com/tobi/qmd",
-    "description": "mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local",
-    "language": "TypeScript",
-    "stars": "10120",
-    "fetched_at": "2026-02-23T13:42:00.256757"
-  },
-  {
-    "name": "openai/skills",
-    "url": "https://github.com/openai/skills",
-    "description": "Skills Catalog for Codex",
+    "name": "calesthio/OpenMontage",
+    "url": "https://github.com/calesthio/OpenMontage",
+    "description": "World's first open-source, agentic video production system. 12 pipelines, 52 tools, 500+ agent skills. Turn your AI coding assistant into a full video production studio.",
     "language": "Python",
-    "stars": "9412",
-    "fetched_at": "2026-02-23T13:42:00.256973"
+    "stars": "33828",
+    "fetched_at": "2026-07-06T06:19:49.108858"
+  },
+  {
+    "name": "Panniantong/Agent-Reach",
+    "url": "https://github.com/Panniantong/Agent-Reach",
+    "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+    "language": "Python",
+    "stars": "51517",
+    "fetched_at": "2026-07-06T06:19:49.109178"
+  },
+  {
+    "name": "mvanhorn/last30days-skill",
+    "url": "https://github.com/mvanhorn/last30days-skill",
+    "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+    "language": "Python",
+    "stars": "49252",
+    "fetched_at": "2026-07-06T06:19:49.109500"
+  },
+  {
+    "name": "iptv-org/iptv",
+    "url": "https://github.com/iptv-org/iptv",
+    "description": "Collection of publicly available IPTV channels from all over the world",
+    "language": "TypeScript",
+    "stars": "130623",
+    "fetched_at": "2026-07-06T06:19:49.109820"
+  },
+  {
+    "name": "interviewstreet/hiring-agent",
+    "url": "https://github.com/interviewstreet/hiring-agent",
+    "description": "AI agent to evaluate and score resumes.",
+    "language": "Python",
+    "stars": "4862",
+    "fetched_at": "2026-07-06T06:19:49.110139"
+  },
+  {
+    "name": "phuryn/pm-skills",
+    "url": "https://github.com/phuryn/pm-skills",
+    "description": "PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.",
+    "language": "Unknown",
+    "stars": "22666",
+    "fetched_at": "2026-07-06T06:19:49.110547"
   },
   {
     "name": "asgeirtj/system_prompts_leaks",
     "url": "https://github.com/asgeirtj/system_prompts_leaks",
-    "description": "Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini",
-    "language": "HTML",
-    "stars": "32688",
-    "fetched_at": "2026-02-23T13:42:00.257270"
-  },
-  {
-    "name": "steipete/gogcli",
-    "url": "https://github.com/steipete/gogcli",
-    "description": "Google Suite CLI: Gmail, GCal, GDrive, GContacts.",
-    "language": "Go",
-    "stars": "4718",
-    "fetched_at": "2026-02-23T13:42:00.257572"
-  },
-  {
-    "name": "thedotmack/claude-mem",
-    "url": "https://github.com/thedotmack/claude-mem",
-    "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
-    "language": "TypeScript",
-    "stars": "30355",
-    "fetched_at": "2026-02-23T13:42:00.257875"
-  },
-  {
-    "name": "p-e-w/heretic",
-    "url": "https://github.com/p-e-w/heretic",
-    "description": "Fully automatic censorship removal for language models",
-    "language": "Python",
-    "stars": "9263",
-    "fetched_at": "2026-02-23T13:42:00.258095"
-  },
-  {
-    "name": "obra/superpowers",
-    "url": "https://github.com/obra/superpowers",
-    "description": "An agentic skills framework & software development methodology that works.",
-    "language": "Shell",
-    "stars": "58789",
-    "fetched_at": "2026-02-23T13:42:00.258375"
-  },
-  {
-    "name": "ThePrimeagen/99",
-    "url": "https://github.com/ThePrimeagen/99",
-    "description": "Neovim AI agent done right",
-    "language": "Lua",
-    "stars": "4017",
-    "fetched_at": "2026-02-23T13:42:00.258669"
-  },
-  {
-    "name": "NevaMind-AI/memU",
-    "url": "https://github.com/NevaMind-AI/memU",
-    "description": "Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot).",
-    "language": "Python",
-    "stars": "9889",
-    "fetched_at": "2026-02-23T13:42:00.258923"
-  },
-  {
-    "name": "modelcontextprotocol/ext-apps",
-    "url": "https://github.com/modelcontextprotocol/ext-apps",
-    "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
-    "language": "TypeScript",
-    "stars": "1624",
-    "fetched_at": "2026-02-23T13:42:00.259141"
-  },
-  {
-    "name": "MoonshotAI/kimi-cli",
-    "url": "https://github.com/MoonshotAI/kimi-cli",
-    "description": "Kimi Code CLI is your next CLI agent.",
-    "language": "Python",
-    "stars": "6647",
-    "fetched_at": "2026-02-23T13:42:00.259362"
-  },
-  {
-    "name": "gsd-build/get-shit-done",
-    "url": "https://github.com/gsd-build/get-shit-done",
-    "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode.",
+    "description": "Extracted system prompts from Anthropic - Claude Fable 5, Opus 4.8, Claude Code, Claude Design. OpenAI - ChatGPT 5.5 Thinking, GPT 5.5 Instant, Codex. Google - Gemini 3.5 Flash, 3.1 Pro, Antigravity. xAI - Grok, Cursor, Copilot, VS Code, Perplexity, and more. Updated regularly.",
     "language": "JavaScript",
-    "stars": "18164",
-    "fetched_at": "2026-02-23T13:42:00.259600"
+    "stars": "50338",
+    "fetched_at": "2026-07-06T06:19:49.110968"
   },
   {
-    "name": "VectifyAI/PageIndex",
-    "url": "https://github.com/VectifyAI/PageIndex",
-    "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+    "name": "ogulcancelik/herdr",
+    "url": "https://github.com/ogulcancelik/herdr",
+    "description": "agent multiplexer that lives in your terminal.",
+    "language": "Rust",
+    "stars": "12267",
+    "fetched_at": "2026-07-06T06:19:49.111405"
+  },
+  {
+    "name": "stablyai/orca",
+    "url": "https://github.com/stablyai/orca",
+    "description": "Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription. Available on desktop and mobile.",
+    "language": "TypeScript",
+    "stars": "12493",
+    "fetched_at": "2026-07-06T06:19:49.111719"
+  },
+  {
+    "name": "usestrix/strix",
+    "url": "https://github.com/usestrix/strix",
+    "description": "Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.",
     "language": "Python",
-    "stars": "16395",
-    "fetched_at": "2026-02-23T13:42:00.259834"
+    "stars": "37398",
+    "fetched_at": "2026-07-06T06:19:49.112029"
   },
   {
-    "name": "steipete/summarize",
-    "url": "https://github.com/steipete/summarize",
-    "description": "Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension.",
-    "language": "TypeScript",
-    "stars": "4200",
-    "fetched_at": "2026-02-23T13:42:00.260112"
+    "name": "kenn-io/agentsview",
+    "url": "https://github.com/kenn-io/agentsview",
+    "description": "Local-first session search, analytics, insights, and token use statistics for coding agents, supporting Claude Code, Codex, and more than 20 other agents.",
+    "language": "Go",
+    "stars": "3791",
+    "fetched_at": "2026-07-06T06:19:49.112337"
   },
   {
-    "name": "virattt/dexter",
-    "url": "https://github.com/virattt/dexter",
-    "description": "An autonomous agent for deep financial research",
+    "name": "n0-computer/iroh",
+    "url": "https://github.com/n0-computer/iroh",
+    "description": "IP addresses break, dial keys instead. A library that adds QUIC + NAT Traversal to your apps.",
+    "language": "Rust",
+    "stars": "11135",
+    "fetched_at": "2026-07-06T06:19:49.112659"
+  },
+  {
+    "name": "roboflow/supervision",
+    "url": "https://github.com/roboflow/supervision",
+    "description": "We write your reusable computer vision tools. 💜",
+    "language": "Python",
+    "stars": "46846",
+    "fetched_at": "2026-07-06T06:19:49.112972"
+  },
+  {
+    "name": "openai/plugins",
+    "url": "https://github.com/openai/plugins",
+    "description": "OpenAI Plugins",
+    "language": "JavaScript",
+    "stars": "4083",
+    "fetched_at": "2026-07-06T06:19:49.113285"
+  },
+  {
+    "name": "t8y2/dbx",
+    "url": "https://github.com/t8y2/dbx",
+    "description": "20MB, lightweight, cross-platform database client. Supports MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, ClickHouse, SQL Server and more.20MB，轻量级跨平台数据库客户端、数据库管理工具。支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、DuckDB、ClickHouse、SQL Server 等。",
+    "language": "Rust",
+    "stars": "8792",
+    "fetched_at": "2026-07-06T06:19:49.113622"
+  },
+  {
+    "name": "lfnovo/open-notebook",
+    "url": "https://github.com/lfnovo/open-notebook",
+    "description": "An Open Source implementation of Notebook LM with more flexibility and features",
     "language": "TypeScript",
-    "stars": "16036",
-    "fetched_at": "2026-02-23T13:42:00.260327"
+    "stars": "34989",
+    "fetched_at": "2026-07-06T06:19:49.113935"
+  },
+  {
+    "name": "mukul975/Anthropic-Cybersecurity-Skills",
+    "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+    "description": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains · Apache 2.0",
+    "language": "Python",
+    "stars": "24660",
+    "fetched_at": "2026-07-06T06:19:49.114347"
+  },
+  {
+    "name": "every-app/open-seo",
+    "url": "https://github.com/every-app/open-seo",
+    "description": "Open source alternative to Semrush and Ahrefs",
+    "language": "TypeScript",
+    "stars": "4116",
+    "fetched_at": "2026-07-06T06:19:49.114666"
   }
 ]
