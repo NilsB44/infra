@@ -1,146 +1,162 @@
 [
   {
-    "name": "openclaw/openclaw",
-    "url": "https://github.com/openclaw/openclaw",
-    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
-    "language": "TypeScript",
-    "stars": "220109",
-    "fetched_at": "2026-02-23T13:42:00.256004"
-  },
-  {
-    "name": "badlogic/pi-mono",
-    "url": "https://github.com/badlogic/pi-mono",
-    "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
-    "language": "TypeScript",
-    "stars": "14897",
-    "fetched_at": "2026-02-23T13:42:00.256317"
-  },
-  {
-    "name": "KeygraphHQ/shannon",
-    "url": "https://github.com/KeygraphHQ/shannon",
-    "description": "Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark.",
-    "language": "TypeScript",
-    "stars": "24522",
-    "fetched_at": "2026-02-23T13:42:00.256536"
-  },
-  {
-    "name": "tobi/qmd",
-    "url": "https://github.com/tobi/qmd",
-    "description": "mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local",
-    "language": "TypeScript",
-    "stars": "10120",
-    "fetched_at": "2026-02-23T13:42:00.256757"
-  },
-  {
-    "name": "openai/skills",
-    "url": "https://github.com/openai/skills",
-    "description": "Skills Catalog for Codex",
+    "name": "bojieli/ai-agent-book",
+    "url": "https://github.com/bojieli/ai-agent-book",
+    "description": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码",
     "language": "Python",
-    "stars": "9412",
-    "fetched_at": "2026-02-23T13:42:00.256973"
+    "stars": "37964",
+    "fetched_at": "2026-08-17T02:52:13.636139"
   },
   {
-    "name": "asgeirtj/system_prompts_leaks",
-    "url": "https://github.com/asgeirtj/system_prompts_leaks",
-    "description": "Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini",
-    "language": "HTML",
-    "stars": "32688",
-    "fetched_at": "2026-02-23T13:42:00.257270"
-  },
-  {
-    "name": "steipete/gogcli",
-    "url": "https://github.com/steipete/gogcli",
-    "description": "Google Suite CLI: Gmail, GCal, GDrive, GContacts.",
-    "language": "Go",
-    "stars": "4718",
-    "fetched_at": "2026-02-23T13:42:00.257572"
-  },
-  {
-    "name": "thedotmack/claude-mem",
-    "url": "https://github.com/thedotmack/claude-mem",
-    "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
+    "name": "diegosouzapw/OmniRoute",
+    "url": "https://github.com/diegosouzapw/OmniRoute",
+    "description": "Never stop coding. Free MIT AI gateway: one endpoint, 340 providers (90+ free), 1200+ models — Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 450+ contributors",
     "language": "TypeScript",
-    "stars": "30355",
-    "fetched_at": "2026-02-23T13:42:00.257875"
+    "stars": "49217",
+    "fetched_at": "2026-08-17T02:52:13.636610"
   },
   {
-    "name": "p-e-w/heretic",
-    "url": "https://github.com/p-e-w/heretic",
-    "description": "Fully automatic censorship removal for language models",
-    "language": "Python",
-    "stars": "9263",
-    "fetched_at": "2026-02-23T13:42:00.258095"
+    "name": "koala73/worldmonitor",
+    "url": "https://github.com/koala73/worldmonitor",
+    "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+    "language": "TypeScript",
+    "stars": "82435",
+    "fetched_at": "2026-08-17T02:52:13.637003"
   },
   {
-    "name": "obra/superpowers",
-    "url": "https://github.com/obra/superpowers",
-    "description": "An agentic skills framework & software development methodology that works.",
+    "name": "1jehuang/jcode",
+    "url": "https://github.com/1jehuang/jcode",
+    "description": "The most RAM efficient harness",
+    "language": "Rust",
+    "stars": "17762",
+    "fetched_at": "2026-08-17T02:52:13.637314"
+  },
+  {
+    "name": "TencentCloud/TencentDB-Agent-Memory",
+    "url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
+    "description": "TencentDB Agent Memory is a team-level memory hub for AI Agents — turning conversations, docs, and code into four reusable memory assets (Chat Memory, Skill, LLM-Wiki, Code-Graph) that are governed, shared, and equipped across agents and frameworks.",
+    "language": "TypeScript",
+    "stars": "22285",
+    "fetched_at": "2026-08-17T02:52:13.637624"
+  },
+  {
+    "name": "zhaoxuya520/reverse-skill",
+    "url": "https://github.com/zhaoxuya520/reverse-skill",
+    "description": "Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base Supports Claude Code, Kiro, Cursor, Cline, and other AI coding clients 逆向/渗透/安全技能路由包 - AI 自动路由 + 按需自举工具链 + 自动进化经验库 | 支持 Claude Code / Kiro / Cursor / Cline 等代码 AI 客户端",
+    "language": "PowerShell",
+    "stars": "25733",
+    "fetched_at": "2026-08-17T02:52:13.637942"
+  },
+  {
+    "name": "pingdotgg/t3code",
+    "url": "https://github.com/pingdotgg/t3code",
+    "description": "No description.",
+    "language": "TypeScript",
+    "stars": "18969",
+    "fetched_at": "2026-08-17T02:52:13.638281"
+  },
+  {
+    "name": "earendil-works/pi",
+    "url": "https://github.com/earendil-works/pi",
+    "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+    "language": "TypeScript",
+    "stars": "91634",
+    "fetched_at": "2026-08-17T02:52:13.638587"
+  },
+  {
+    "name": "every-app/open-seo",
+    "url": "https://github.com/every-app/open-seo",
+    "description": "Open source alternative to Semrush and Ahrefs",
+    "language": "TypeScript",
+    "stars": "12226",
+    "fetched_at": "2026-08-17T02:52:13.638883"
+  },
+  {
+    "name": "mattpocock/skills",
+    "url": "https://github.com/mattpocock/skills",
+    "description": "Skills for Real Engineers. Straight from my .agents directory.",
     "language": "Shell",
-    "stars": "58789",
-    "fetched_at": "2026-02-23T13:42:00.258375"
+    "stars": "219394",
+    "fetched_at": "2026-08-17T02:52:13.639287"
   },
   {
-    "name": "ThePrimeagen/99",
-    "url": "https://github.com/ThePrimeagen/99",
-    "description": "Neovim AI agent done right",
-    "language": "Lua",
-    "stars": "4017",
-    "fetched_at": "2026-02-23T13:42:00.258669"
-  },
-  {
-    "name": "NevaMind-AI/memU",
-    "url": "https://github.com/NevaMind-AI/memU",
-    "description": "Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot).",
+    "name": "virgiliojr94/book-to-skill",
+    "url": "https://github.com/virgiliojr94/book-to-skill",
+    "description": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
     "language": "Python",
-    "stars": "9889",
-    "fetched_at": "2026-02-23T13:42:00.258923"
+    "stars": "22260",
+    "fetched_at": "2026-08-17T02:52:13.639683"
   },
   {
-    "name": "modelcontextprotocol/ext-apps",
-    "url": "https://github.com/modelcontextprotocol/ext-apps",
-    "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
+    "name": "stablyai/orca",
+    "url": "https://github.com/stablyai/orca",
+    "description": "Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription. Available on desktop, mobile and VPS.",
     "language": "TypeScript",
-    "stars": "1624",
-    "fetched_at": "2026-02-23T13:42:00.259141"
+    "stars": "46661",
+    "fetched_at": "2026-08-17T02:52:13.639998"
   },
   {
-    "name": "MoonshotAI/kimi-cli",
-    "url": "https://github.com/MoonshotAI/kimi-cli",
-    "description": "Kimi Code CLI is your next CLI agent.",
+    "name": "HKUDS/DeepTutor",
+    "url": "https://github.com/HKUDS/DeepTutor",
+    "description": "DeepTutor: Lifelong Personalized Tutoring.https://deeptutor.info/.",
     "language": "Python",
-    "stars": "6647",
-    "fetched_at": "2026-02-23T13:42:00.259362"
+    "stars": "35968",
+    "fetched_at": "2026-08-17T02:52:13.640306"
   },
   {
-    "name": "gsd-build/get-shit-done",
-    "url": "https://github.com/gsd-build/get-shit-done",
-    "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode.",
-    "language": "JavaScript",
-    "stars": "18164",
-    "fetched_at": "2026-02-23T13:42:00.259600"
-  },
-  {
-    "name": "VectifyAI/PageIndex",
-    "url": "https://github.com/VectifyAI/PageIndex",
-    "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+    "name": "tirth8205/code-review-graph",
+    "url": "https://github.com/tirth8205/code-review-graph",
+    "description": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with benchmarked context reductions on reviews and large-repo workflows.",
     "language": "Python",
-    "stars": "16395",
-    "fetched_at": "2026-02-23T13:42:00.259834"
+    "stars": "30360",
+    "fetched_at": "2026-08-17T02:52:13.640698"
   },
   {
-    "name": "steipete/summarize",
-    "url": "https://github.com/steipete/summarize",
-    "description": "Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension.",
+    "name": "agegr/pi-web",
+    "url": "https://github.com/agegr/pi-web",
+    "description": "Web UI for the pi coding agent",
     "language": "TypeScript",
-    "stars": "4200",
-    "fetched_at": "2026-02-23T13:42:00.260112"
+    "stars": "4446",
+    "fetched_at": "2026-08-17T02:52:13.641002"
   },
   {
-    "name": "virattt/dexter",
-    "url": "https://github.com/virattt/dexter",
-    "description": "An autonomous agent for deep financial research",
+    "name": "Nutlope/hallmark",
+    "url": "https://github.com/Nutlope/hallmark",
+    "description": "Anti-AI-slop design skill for Claude Code, Cursor, and Codex.",
+    "language": "CSS",
+    "stars": "25325",
+    "fetched_at": "2026-08-17T02:52:13.641298"
+  },
+  {
+    "name": "lyogavin/airllm",
+    "url": "https://github.com/lyogavin/airllm",
+    "description": "AirLLM 70B inference with single 4GB GPU",
+    "language": "Jupyter Notebook",
+    "stars": "31355",
+    "fetched_at": "2026-08-17T02:52:13.641706"
+  },
+  {
+    "name": "different-ai/openwork",
+    "url": "https://github.com/different-ai/openwork",
+    "description": "The open-source alternative to Claude Cowork (powered by opencode)",
     "language": "TypeScript",
-    "stars": "16036",
-    "fetched_at": "2026-02-23T13:42:00.260327"
+    "stars": "22458",
+    "fetched_at": "2026-08-17T02:52:13.642012"
+  },
+  {
+    "name": "megadose/holehe",
+    "url": "https://github.com/megadose/holehe",
+    "description": "holehe allows you to check if the mail is used on different sites like twitter, instagram and will retrieve information on sites with the forgotten password function.",
+    "language": "Python",
+    "stars": "13306",
+    "fetched_at": "2026-08-17T02:52:13.642315"
+  },
+  {
+    "name": "tt-a1i/archify",
+    "url": "https://github.com/tt-a1i/archify",
+    "description": "Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams—self-contained HTML with motion and crisp export.",
+    "language": "HTML",
+    "stars": "13445",
+    "fetched_at": "2026-08-17T02:52:13.642610"
   }
 ]
