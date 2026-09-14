@@ -1,24 +1,23 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-09-14 07:22:54
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [omacom/omarchy](https://github.com/omacom/omarchy) | Shell | 40923 | Beautiful, Modern & Opinionated Linux |
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | JavaScript | 61311 | Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams—self-contained HTML with motion and crisp export. |
+| [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Python | 3965 | Community plugin marketplace for Claude Cowork and Claude Code. Read-only mirror — submit plugins at clau.de/plugin-directory-submission. |
+| [AprilNEA/OpenLogi](https://github.com/AprilNEA/OpenLogi) | Rust | 20984 | ⚡️A native, local-first alternative to Logitech Options+, written in Rust 🦀 — remap buttons, DPI, and SmartShift over HID++. No account, no telemetry. |
+| [cursor/plugins](https://github.com/cursor/plugins) | TypeScript | 7645 | Cursor plugin specification and official plugins |
+| [volcengine/OpenViking](https://github.com/volcengine/OpenViking) | Python | 37099 | Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills. |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | HTML | 39437 | 38 editorial diagram types for Claude Code, Codex, and Pi. Self-contained HTML + SVG. No shadows. No Mermaid slop. |
+| [freestylefly/awesome-gpt-image-2](https://github.com/freestylefly/awesome-gpt-image-2) | JavaScript | 31742 | Prompt as Code - GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。 |
+| [THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | TypeScript | 36610 | Open Multi-Agent Interactive Classroom — Get an immersive, multi-agent learning experience in just one click |
+| [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | Python | 44700 | A skill to stop your coding agent from burying the answer. ADHD-friendly output. |
+| [vorssaint/vorssaint-utils](https://github.com/vorssaint/vorssaint-utils) | Swift | 18830 | Free and open-source macOS menu bar toolkit. |
+| [modular/modular](https://github.com/modular/modular) | Mojo | 29735 | The Modular Platform (includes MAX & Mojo) |
+| [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory) | Rust | 6724 | Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors |
+| [Lakr233/vphone-cli](https://github.com/Lakr233/vphone-cli) | Swift | 11871 | No description. |
+| [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | Python | 27627 | VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages. |
+| [apache/maka](https://github.com/apache/maka) | TypeScript | 5367 | Apache Maka (Incubating) is a high-performance agent workspace that keeps a complete record of everything it did. |
+| [cordiverse/cordis](https://github.com/cordiverse/cordis) | TypeScript | 8469 | Meta-Framework of Spatiotemporal Composability |
