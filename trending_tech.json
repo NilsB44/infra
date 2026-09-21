@@ -1,146 +1,162 @@
 [
   {
-    "name": "openclaw/openclaw",
-    "url": "https://github.com/openclaw/openclaw",
-    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞",
-    "language": "TypeScript",
-    "stars": "220109",
-    "fetched_at": "2026-02-23T13:42:00.256004"
-  },
-  {
-    "name": "badlogic/pi-mono",
-    "url": "https://github.com/badlogic/pi-mono",
-    "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
-    "language": "TypeScript",
-    "stars": "14897",
-    "fetched_at": "2026-02-23T13:42:00.256317"
-  },
-  {
-    "name": "KeygraphHQ/shannon",
-    "url": "https://github.com/KeygraphHQ/shannon",
-    "description": "Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark.",
-    "language": "TypeScript",
-    "stars": "24522",
-    "fetched_at": "2026-02-23T13:42:00.256536"
-  },
-  {
-    "name": "tobi/qmd",
-    "url": "https://github.com/tobi/qmd",
-    "description": "mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local",
-    "language": "TypeScript",
-    "stars": "10120",
-    "fetched_at": "2026-02-23T13:42:00.256757"
-  },
-  {
-    "name": "openai/skills",
-    "url": "https://github.com/openai/skills",
-    "description": "Skills Catalog for Codex",
-    "language": "Python",
-    "stars": "9412",
-    "fetched_at": "2026-02-23T13:42:00.256973"
-  },
-  {
-    "name": "asgeirtj/system_prompts_leaks",
-    "url": "https://github.com/asgeirtj/system_prompts_leaks",
-    "description": "Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini",
-    "language": "HTML",
-    "stars": "32688",
-    "fetched_at": "2026-02-23T13:42:00.257270"
-  },
-  {
-    "name": "steipete/gogcli",
-    "url": "https://github.com/steipete/gogcli",
-    "description": "Google Suite CLI: Gmail, GCal, GDrive, GContacts.",
-    "language": "Go",
-    "stars": "4718",
-    "fetched_at": "2026-02-23T13:42:00.257572"
-  },
-  {
-    "name": "thedotmack/claude-mem",
-    "url": "https://github.com/thedotmack/claude-mem",
-    "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
-    "language": "TypeScript",
-    "stars": "30355",
-    "fetched_at": "2026-02-23T13:42:00.257875"
-  },
-  {
-    "name": "p-e-w/heretic",
-    "url": "https://github.com/p-e-w/heretic",
-    "description": "Fully automatic censorship removal for language models",
-    "language": "Python",
-    "stars": "9263",
-    "fetched_at": "2026-02-23T13:42:00.258095"
-  },
-  {
-    "name": "obra/superpowers",
-    "url": "https://github.com/obra/superpowers",
-    "description": "An agentic skills framework & software development methodology that works.",
-    "language": "Shell",
-    "stars": "58789",
-    "fetched_at": "2026-02-23T13:42:00.258375"
-  },
-  {
-    "name": "ThePrimeagen/99",
-    "url": "https://github.com/ThePrimeagen/99",
-    "description": "Neovim AI agent done right",
-    "language": "Lua",
-    "stars": "4017",
-    "fetched_at": "2026-02-23T13:42:00.258669"
-  },
-  {
-    "name": "NevaMind-AI/memU",
-    "url": "https://github.com/NevaMind-AI/memU",
-    "description": "Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot).",
-    "language": "Python",
-    "stars": "9889",
-    "fetched_at": "2026-02-23T13:42:00.258923"
-  },
-  {
-    "name": "modelcontextprotocol/ext-apps",
-    "url": "https://github.com/modelcontextprotocol/ext-apps",
-    "description": "Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers",
-    "language": "TypeScript",
-    "stars": "1624",
-    "fetched_at": "2026-02-23T13:42:00.259141"
-  },
-  {
-    "name": "MoonshotAI/kimi-cli",
-    "url": "https://github.com/MoonshotAI/kimi-cli",
-    "description": "Kimi Code CLI is your next CLI agent.",
-    "language": "Python",
-    "stars": "6647",
-    "fetched_at": "2026-02-23T13:42:00.259362"
-  },
-  {
-    "name": "gsd-build/get-shit-done",
-    "url": "https://github.com/gsd-build/get-shit-done",
-    "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode.",
+    "name": "tt-a1i/archify",
+    "url": "https://github.com/tt-a1i/archify",
+    "description": "Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams—self-contained HTML with motion and crisp export.",
     "language": "JavaScript",
-    "stars": "18164",
-    "fetched_at": "2026-02-23T13:42:00.259600"
+    "stars": "68563",
+    "fetched_at": "2026-09-21T07:26:43.820128"
   },
   {
-    "name": "VectifyAI/PageIndex",
-    "url": "https://github.com/VectifyAI/PageIndex",
-    "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+    "name": "THU-MAIC/OpenMAIC",
+    "url": "https://github.com/THU-MAIC/OpenMAIC",
+    "description": "Open Multi-Agent Interactive Classroom — Get an immersive, multi-agent learning experience in just one click",
+    "language": "TypeScript",
+    "stars": "38293",
+    "fetched_at": "2026-09-21T07:26:43.820522"
+  },
+  {
+    "name": "anthropics/claude-plugins-community",
+    "url": "https://github.com/anthropics/claude-plugins-community",
+    "description": "Community plugin marketplace for Claude Cowork and Claude Code. Read-only mirror — submit plugins at clau.de/plugin-directory-submission.",
     "language": "Python",
-    "stars": "16395",
-    "fetched_at": "2026-02-23T13:42:00.259834"
+    "stars": "4328",
+    "fetched_at": "2026-09-21T07:26:43.820897"
   },
   {
-    "name": "steipete/summarize",
-    "url": "https://github.com/steipete/summarize",
-    "description": "Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension.",
-    "language": "TypeScript",
-    "stars": "4200",
-    "fetched_at": "2026-02-23T13:42:00.260112"
+    "name": "omacom/omarchy",
+    "url": "https://github.com/omacom/omarchy",
+    "description": "Beautiful, Modern & Opinionated Linux",
+    "language": "Shell",
+    "stars": "42424",
+    "fetched_at": "2026-09-21T07:26:43.821254"
   },
   {
-    "name": "virattt/dexter",
-    "url": "https://github.com/virattt/dexter",
-    "description": "An autonomous agent for deep financial research",
+    "name": "freestylefly/awesome-gpt-image-2",
+    "url": "https://github.com/freestylefly/awesome-gpt-image-2",
+    "description": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。",
+    "language": "JavaScript",
+    "stars": "33063",
+    "fetched_at": "2026-09-21T07:26:43.821600"
+  },
+  {
+    "name": "cursor/plugins",
+    "url": "https://github.com/cursor/plugins",
+    "description": "Cursor plugin specification and official plugins",
     "language": "TypeScript",
-    "stars": "16036",
-    "fetched_at": "2026-02-23T13:42:00.260327"
+    "stars": "8256",
+    "fetched_at": "2026-09-21T07:26:43.821965"
+  },
+  {
+    "name": "debpalash/VoiceStudio",
+    "url": "https://github.com/debpalash/VoiceStudio",
+    "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+    "language": "Python",
+    "stars": "33650",
+    "fetched_at": "2026-09-21T07:26:43.822322"
+  },
+  {
+    "name": "cloudflare/security-audit-skill",
+    "url": "https://github.com/cloudflare/security-audit-skill",
+    "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
+    "language": "JavaScript",
+    "stars": "18370",
+    "fetched_at": "2026-09-21T07:26:43.822661"
+  },
+  {
+    "name": "vorssaint/vorssaint-utils",
+    "url": "https://github.com/vorssaint/vorssaint-utils",
+    "description": "Free and open-source macOS menu bar toolkit.",
+    "language": "Swift",
+    "stars": "20292",
+    "fetched_at": "2026-09-21T07:26:43.823121"
+  },
+  {
+    "name": "ayghri/i-have-adhd",
+    "url": "https://github.com/ayghri/i-have-adhd",
+    "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+    "language": "Python",
+    "stars": "49423",
+    "fetched_at": "2026-09-21T07:26:43.823458"
+  },
+  {
+    "name": "alibaba/open-code-review",
+    "url": "https://github.com/alibaba/open-code-review",
+    "description": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+    "language": "Go",
+    "stars": "38688",
+    "fetched_at": "2026-09-21T07:26:43.823793"
+  },
+  {
+    "name": "Lakr233/vphone-cli",
+    "url": "https://github.com/Lakr233/vphone-cli",
+    "description": "No description.",
+    "language": "Swift",
+    "stars": "14108",
+    "fetched_at": "2026-09-21T07:26:43.824290"
+  },
+  {
+    "name": "AprilNEA/OpenLogi",
+    "url": "https://github.com/AprilNEA/OpenLogi",
+    "description": "⚡️A native, local-first alternative to Logitech Options+, written in Rust 🦀 — remap buttons, DPI, and SmartShift over HID++. No account, no telemetry.",
+    "language": "Rust",
+    "stars": "21785",
+    "fetched_at": "2026-09-21T07:26:43.824735"
+  },
+  {
+    "name": "tech-leads-club/agent-skills",
+    "url": "https://github.com/tech-leads-club/agent-skills",
+    "description": "The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence.",
+    "language": "TypeScript",
+    "stars": "6563",
+    "fetched_at": "2026-09-21T07:26:43.825094"
+  },
+  {
+    "name": "google-research/timesfm",
+    "url": "https://github.com/google-research/timesfm",
+    "description": "TimesFM (Time Series Foundation Model) is a pretrained time-series foundation model developed by Google Research for time-series forecasting.",
+    "language": "Python",
+    "stars": "33359",
+    "fetched_at": "2026-09-21T07:26:43.825433"
+  },
+  {
+    "name": "cathrynlavery/diagram-design",
+    "url": "https://github.com/cathrynlavery/diagram-design",
+    "description": "Editorial diagram design for Claude Code, Codex, and Pi. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+    "language": "HTML",
+    "stars": "41674",
+    "fetched_at": "2026-09-21T07:26:43.825767"
+  },
+  {
+    "name": "jingyaogong/minimind",
+    "url": "https://github.com/jingyaogong/minimind",
+    "description": "🧠 Train a 64M-parameter LLM from scratch in just 2h!",
+    "language": "Python",
+    "stars": "61908",
+    "fetched_at": "2026-09-21T07:26:43.826127"
+  },
+  {
+    "name": "Tencent/WeKnora",
+    "url": "https://github.com/Tencent/WeKnora",
+    "description": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
+    "language": "Go",
+    "stars": "28231",
+    "fetched_at": "2026-09-21T07:26:43.826465"
+  },
+  {
+    "name": "Tencent/BrowserSkill",
+    "url": "https://github.com/Tencent/BrowserSkill",
+    "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
+    "language": "TypeScript",
+    "stars": "6160",
+    "fetched_at": "2026-09-21T07:26:43.826805"
+  },
+  {
+    "name": "every-app/open-seo",
+    "url": "https://github.com/every-app/open-seo",
+    "description": "Open source alternative to Semrush and Ahrefs",
+    "language": "TypeScript",
+    "stars": "19758",
+    "fetched_at": "2026-09-21T07:26:43.827165"
   }
 ]
