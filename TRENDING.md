@@ -1,24 +1,24 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-09-28 08:00:28
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | JavaScript | 22468 | A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings |
+| [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) | JavaScript | 44207 | A spy satellite simulator in your browser, except the data is real. Live open source spatial intelligence on a photorealistic 3D globe. |
+| [miuuyy/codex-chatgpt-web](https://github.com/miuuyy/codex-chatgpt-web) | TypeScript | 12257 | Use ChatGPT Web (including Pro) as a native model in Codex — with context, tools, streaming and images, without using Codex quota. |
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | JavaScript | 73079 | Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams—self-contained HTML with motion and crisp export. |
+| [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | Go | 42059 | Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible. |
+| [superdesigndev/treg](https://github.com/superdesigndev/treg) | Python | 3615 | OpenRouter for agent tools. Join community here:https://discord.gg/6mQYYfFMAn |
+| [THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) | TypeScript | 39334 | Open Multi-Agent Interactive Classroom — Get an immersive, multi-agent learning experience in just one click |
+| [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | Python | 41055 | VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages. |
+| [pollen-robotics/microduck_rl](https://github.com/pollen-robotics/microduck_rl) | Python | 2303 | RL training environments for Microduck (mjlab) |
+| [magnitudedev/magnitude](https://github.com/magnitudedev/magnitude) | Rust | 5300 | Open source inference engine for the hardware you already own. Profiles your machine, recommends the best open models for it, and tunes them for your exact hardware. Works on Apple Silicon, NVIDIA, AMD, or nothing but a CPU. |
+| [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) | TypeScript | 6933 | The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence. |
+| [anthropics/financial-services](https://github.com/anthropics/financial-services) | Python | 37931 | No description. |
+| [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | Python | 51692 | A skill to stop your coding agent from burying the answer. ADHD-friendly output. |
+| [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | Go | 30760 | Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki. |
+| [google-research/timesfm](https://github.com/google-research/timesfm) | Python | 33892 | TimesFM (Time Series Foundation Model) is a pretrained time-series foundation model developed by Google Research for time-series forecasting. |
+| [every-app/open-seo](https://github.com/every-app/open-seo) | TypeScript | 21444 | Open source alternative to Semrush and Ahrefs |
+| [cursor/plugins](https://github.com/cursor/plugins) | TypeScript | 8841 | Cursor plugin specification and official plugins |
+| [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill) | TypeScript | 7623 | Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent. |
