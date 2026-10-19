@@ -1,24 +1,26 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-10-19 07:07:55
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | TypeScript | 104292 | The open-source app everyone uses to manage agents at work |
+| [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | Python | 76147 | VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages. |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | TypeScript | 67000 | Write HTML. Render video. Built for agents. |
+| [anthropics/financial-services](https://github.com/anthropics/financial-services) | Python | 40312 | No description. |
+| [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight) | Python | 51358 | Hindsight: Agent Memory That Learns |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | JavaScript | 31280 | A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings |
+| [agent-substrate/substrate](https://github.com/agent-substrate/substrate) | Go | 5535 | Agent Substrate: the core system |
+| [mksglu/context-mode](https://github.com/mksglu/context-mode) | TypeScript | 30858 | Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks. |
+| [NVIDIA/OpenShell](https://github.com/NVIDIA/OpenShell) | Rust | 16650 | OpenShell is the safe, private runtime for autonomous AI agents. |
+| [affaan-m/ECC](https://github.com/affaan-m/ECC) | JavaScript | 283482 | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. |
+| [tashfeenahmed/freellmapi](https://github.com/tashfeenahmed/freellmapi) | TypeScript | 37222 | 7.4 billion tokens per month. 34 free LLM providers. 635 free model endpoints. All behind one /v1 endpoint, plus any custom OpenAI-compatible endpoint. Smart routing, automatic failover, encrypted keys. Personal experimentation only. |
+| [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Python | 30280 | Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork |
+| [NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra) | Java | 91105 | Ghidra is a software reverse engineering (SRE) framework |
+| [cursor/plugins](https://github.com/cursor/plugins) | TypeScript | 12866 | Cursor plugin specification and official plugins |
+| [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) | Python | 71151 | Learn AI Engineering! Learn it. Build it. Ship it for others. |
+| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Python | 42900 | Official, Anthropic-managed directory of high quality Claude Code Plugins. |
+| [TencentCloud/Octop](https://github.com/TencentCloud/Octop) | Python | 9978 | A smarter, self-hosted AI assistant — multi-user, multi-agent. |
+| [trycua/cua](https://github.com/trycua/cua) | Rust | 30175 | Scale computer-use 2.0 with open-source drivers, cross-OS sandboxes, and benchmarks for training, evaluation, and data generation. |
+| [longbridge/gpui-kit](https://github.com/longbridge/gpui-kit) | Rust | 18176 | Rust GUI components for building fantastic cross-platform desktop application by using GPUI. |
+| [pingdotgg/t3code](https://github.com/pingdotgg/t3code) | TypeScript | 28437 | No description. |
