@@ -1,24 +1,20 @@
 # 📈 GitHub Trending (Monthly)
 
-**Fetched:** 2026-02-23 13:42:00
+**Fetched:** 2026-11-16 08:48:01
 
 | Repository | Language | Stars | Description |
 |---|---|---|---|
-| [openclaw/openclaw](https://github.com/openclaw/openclaw) | TypeScript | 220109 | Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 |
-| [badlogic/pi-mono](https://github.com/badlogic/pi-mono) | TypeScript | 14897 | AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods |
-| [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | TypeScript | 24522 | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark. |
-| [tobi/qmd](https://github.com/tobi/qmd) | TypeScript | 10120 | mini cli search engine for your docs, knowledge bases, meeting notes, whatever. Tracking current sota approaches while being all local |
-| [openai/skills](https://github.com/openai/skills) | Python | 9412 | Skills Catalog for Codex |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | HTML | 32688 | Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini |
-| [steipete/gogcli](https://github.com/steipete/gogcli) | Go | 4718 | Google Suite CLI: Gmail, GCal, GDrive, GContacts. |
-| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 30355 | A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions. |
-| [p-e-w/heretic](https://github.com/p-e-w/heretic) | Python | 9263 | Fully automatic censorship removal for language models |
-| [obra/superpowers](https://github.com/obra/superpowers) | Shell | 58789 | An agentic skills framework & software development methodology that works. |
-| [ThePrimeagen/99](https://github.com/ThePrimeagen/99) | Lua | 4017 | Neovim AI agent done right |
-| [NevaMind-AI/memU](https://github.com/NevaMind-AI/memU) | Python | 9889 | Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot). |
-| [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps) | TypeScript | 1624 | Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers |
-| [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | Python | 6647 | Kimi Code CLI is your next CLI agent. |
-| [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) | JavaScript | 18164 | A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code and OpenCode. |
-| [VectifyAI/PageIndex](https://github.com/VectifyAI/PageIndex) | Python | 16395 | 📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG |
-| [steipete/summarize](https://github.com/steipete/summarize) | TypeScript | 4200 | Point at any URL/YouTube/Podcast or file. Get the gist. CLI and Chrome Extension. |
-| [virattt/dexter](https://github.com/virattt/dexter) | TypeScript | 16036 | An autonomous agent for deep financial research |
+| [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | CSS | 55729 | Anti-AI-slop design skill for Claude Code, Cursor, and Codex. |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | JavaScript | 73432 | A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings |
+| [pingdotgg/t3code](https://github.com/pingdotgg/t3code) | TypeScript | 61986 | The best way to control Claude Code, Codex and more from any computer or phone |
+| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | TypeScript | 117487 | Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Rust | 110981 | The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships. |
+| [anthropics/skills](https://github.com/anthropics/skills) | Python | 195568 | Public repository for Agent Skills |
+| [HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor) | Python | 59605 | DeepTutor: Lifelong Personalized Tutoring.https://deeptutor.info/. |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | TypeScript | 84906 | Write HTML. Render video. Built for agents. |
+| [sherlock-project/sherlock](https://github.com/sherlock-project/sherlock) | Python | 112765 | Hunt down social media accounts by username across social networks |
+| [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) | Python | 29828 | Universal SEO skill for Claude Code. 26 sub-skills + 19 sub-agents covering technical SEO, E-E-A-T, schema, GEO/AEO, agent readiness (Lighthouse Agentic Browsing, WebMCP, llms.txt), backlinks, local SEO, e-commerce, international SEO, Google APIs, and PDF/Excel reporting. 9 optional extensions for live SEO data. |
+| [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | JavaScript | 116452 | Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages |
+| [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Python | 36234 | Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork |
+| [Vincentwei1021/video-shotcraft](https://github.com/Vincentwei1021/video-shotcraft) | TypeScript | 20284 | AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync, sound design, Motion Workbench & JianYing (CapCut CN) export. |
+| [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser) | Rust | 51783 | Browser automation CLI for AI agents |
